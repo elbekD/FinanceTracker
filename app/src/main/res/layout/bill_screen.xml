@@ -4,20 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".billActivity.BillScreen">
+    tools:context=".BillActivity.BillScreen">
 
-    <FrameLayout
-        android:id="@+id/frgmCont"
-        android:layout_width="392dp"
-        android:layout_height="266dp"
+    <TextView
+        android:id="@+id/your_balance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/your_balance"
+        android:textColor="@color/colorBlack"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/balanceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="108dp"
+        android:text="@string/hardcoded_sum_rub"
+        android:textColor="@color/colorBlack"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/rubCurrencyButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/border"
+        android:src="@drawable/currency_rub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.331"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTv" />
+
+    <ImageView
+        android:id="@+id/dollarCurrencyButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/border"
+        android:src="@drawable/currency_usd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintStart_toEndOf="@+id/rubCurrencyButton"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTv" />
+
+    <ImageView
+        android:id="@+id/currentCurrency"
+        android:layout_width="30dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="108dp"
+        android:src="@drawable/currency_rub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toEndOf="@+id/balanceTv"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="?colorPrimary">
@@ -36,19 +106,5 @@
             android:layout_marginLeft="240dp"
             android:src="@drawable/settings_outline" />
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/your_history"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frgmCont" />
 
 </android.support.constraint.ConstraintLayout>
