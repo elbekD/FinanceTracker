@@ -1,5 +1,6 @@
 package com.example.ignition.financetracker.Repository
 
+
 import com.example.ignition.financetracker.FinancialOperations.AvailableOperations
 import com.example.ignition.financetracker.FinancialOperations.CurrencyEntity
 import java.math.BigDecimal
@@ -27,5 +28,8 @@ class Repository : IRepository {
             AvailableOperations.OUTCOME
 
     )
+           CurrencyEntity(BigDecimal.valueOf(100))
+    )
+
     override fun getData() = data
 }

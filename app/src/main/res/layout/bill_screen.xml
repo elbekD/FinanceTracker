@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".BillActivity.BillScreen">
 
-    <FrameLayout
+   <FrameLayout
         android:id="@+id/frgmCont"
         android:layout_width="392dp"
         android:layout_height="266dp"
@@ -15,6 +15,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
     </FrameLayout>
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
