@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BillScreen">
+    tools:context=".BillActivity.BillScreen">
 
     <TextView
         android:id="@+id/your_balance_text"

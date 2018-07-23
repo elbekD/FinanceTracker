@@ -1,10 +1,13 @@
-package com.example.ignition.financetracker
+package com.example.ignition.financetracker.AboutActivity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ignition.financetracker.R
 
-import kotlinx.android.synthetic.main.activity_info.*
-
+/**
+ * Activity for info about app
+ * TODO: add some design features
+ */
 class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
