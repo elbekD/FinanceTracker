@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.FinancialOperations
+package com.example.ignition.financetracker.financialOperations
 
 import java.math.BigDecimal
 

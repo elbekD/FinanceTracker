@@ -1,9 +1,9 @@
-package com.example.ignition.financetracker.SettingsActivity
+package com.example.ignition.financetracker.settingsActivity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.ignition.financetracker.AboutActivity.InfoActivity
+import com.example.ignition.financetracker.aboutActivity.InfoActivity
 import com.example.ignition.financetracker.R
 import kotlinx.android.synthetic.main.activity_settings.*
 

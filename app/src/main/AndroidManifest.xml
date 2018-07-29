@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ignition.financetracker">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BillActivity.BillScreen">
+        <activity android:name=".billActivity.BillScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity.SettingsActivity" />
-        <activity android:name=".AboutActivity.InfoActivity"></activity>
+        <activity android:name=".settingsActivity.SettingsActivity" />
+        <activity android:name=".aboutActivity.InfoActivity"></activity>
     </application>
 
 </manifest>

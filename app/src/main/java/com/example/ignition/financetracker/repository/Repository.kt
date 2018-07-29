@@ -1,7 +1,7 @@
-package com.example.ignition.financetracker.Repository
+package com.example.ignition.financetracker.repository
 
-import com.example.ignition.financetracker.FinancialOperations.AvailableOperations
-import com.example.ignition.financetracker.FinancialOperations.CurrencyEntity
+import com.example.ignition.financetracker.financialOperations.AvailableOperations
+import com.example.ignition.financetracker.financialOperations.CurrencyEntity
 import java.math.BigDecimal
 
 class Repository : IRepository {

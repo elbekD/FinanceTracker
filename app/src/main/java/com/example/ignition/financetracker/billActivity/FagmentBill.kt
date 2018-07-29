@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.BillActivity
+package com.example.ignition.financetracker.billActivity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.example.ignition.financetracker.FinancialOperations.CurrencyOperation
-import com.example.ignition.financetracker.FinancialOperations.CurrencyType
+import android.widget.Toast
+import com.example.ignition.financetracker.financialOperations.FinancialOperations
+import com.example.ignition.financetracker.financialOperations.CurrencyType
 import com.example.ignition.financetracker.R
-import com.example.ignition.financetracker.Repository.Repository
+import com.example.ignition.financetracker.networking.CurrencyCourseAPI
+
+import com.example.ignition.financetracker.repository.Repository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.math.BigDecimal
 
 class FragmentBill : Fragment() {
-    private var currentValuta = CurrencyType.RUB
+    private var userCurrency = CurrencyType.RUB
     private var fakeData = Repository().getData()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,20 +35,19 @@ class FragmentBill : Fragment() {
 
     private fun initViews() {
 
-        balanceTv.text = String.format(CurrencyOperation.getCurrentBalance(fakeData).toString())
+        balanceTv.text = String.format(FinancialOperations.getCurrentBalance(fakeData).toString())
         // Case ruble infor button clicked -> show RUB balance and change icon on RUB synbol, it RUB is showed -> do nothing
         rubCurrencyButton.setOnClickListener {
-            toOtherCurrency(CurrencyType.RUB, 0.01, currentCurrency, R.drawable.currency_rub, currentValuta)
-            currentValuta = CurrencyType.RUB
+            toOtherCurrency(CurrencyType.RUB, 0.01, currentCurrency, R.drawable.currency_rub, userCurrency)
+            userCurrency = CurrencyType.RUB
         }
 
         dollarCurrencyButton.setOnClickListener {
-            toOtherCurrency(CurrencyType.USD, 60.0, currentCurrency, R.drawable.currency_usd, currentValuta)
-            currentValuta = CurrencyType.USD
+            toOtherCurrency(CurrencyType.USD, 60.0, currentCurrency, R.drawable.currency_usd, userCurrency)
+            userCurrency = CurrencyType.USD
         }
-
-
     }
+
 
     /**
      * Method for changint USD sum on RUB. Also change currency icon
@@ -55,7 +60,7 @@ class FragmentBill : Fragment() {
 
     private fun toOtherCurrency(toCurrency: CurrencyType = CurrencyType.RUB, coefficient: Double, imageView: ImageView, resId: Int, currentValuta: CurrencyType) {
         if (currentValuta != toCurrency) {
-            balanceTv.text = String.format(CurrencyOperation.convertCurrency(balanceTv.text.toString().toBigDecimal(), BigDecimal.valueOf(coefficient))
+            balanceTv.text = String.format(FinancialOperations.convertCurrency(balanceTv.text.toString().toBigDecimal(), BigDecimal.valueOf(coefficient))
                     .toString())
             setImage(imageView, resId)
         }
@@ -68,5 +73,6 @@ class FragmentBill : Fragment() {
      * @param resId - id of resource to set in IV
      */
     private fun setImage(imageView: ImageView, resId: Int) = imageView.setImageResource(resId)
+
 
 }

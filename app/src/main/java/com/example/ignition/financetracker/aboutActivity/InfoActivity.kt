@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.AboutActivity
+package com.example.ignition.financetracker.aboutActivity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
