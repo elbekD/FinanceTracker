@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ignition.financetracker.R
+import com.example.ignition.financetracker.R.id.cardsSwitcher
+import com.example.ignition.financetracker.R.id.settingMenu
 import com.example.ignition.financetracker.settingsActivity.SettingsActivity
 import kotlinx.android.synthetic.main.cards_fragment.*
 

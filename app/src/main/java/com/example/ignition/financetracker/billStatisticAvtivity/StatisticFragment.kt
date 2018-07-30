@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ignition.financetracker.R
+import com.example.ignition.financetracker.R.id.*
 import com.example.ignition.financetracker.Utils
 import com.example.ignition.financetracker.entities.CurrencyType
 import com.example.ignition.financetracker.repository.ICurrencyInfoRepository

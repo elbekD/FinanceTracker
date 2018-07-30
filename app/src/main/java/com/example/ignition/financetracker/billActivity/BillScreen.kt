@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.bill_screen.*
 
 /**
  * Main activity about user balance
- * TODO MVP
  */
 class BillScreen : AppCompatActivity() {
     private val FRAGMENT_BILL_TAG = "fragment_bill_tag"
@@ -28,12 +27,12 @@ class BillScreen : AppCompatActivity() {
 
     }
 
-    fun initViews() {
+    private fun initViews() {
         addOperation.setOnClickListener { AddOperationDialog().show(fragmentManager, OPERATIONS_DIALOG_FRAGMENT_TAG) }
 
     }
 
-    fun initFragments() {
+    private fun initFragments() {
         addFragment(FragmentBill(), R.id.frgmCont, FRAGMENT_BILL_TAG)
         addFragment(FragmentCards(), R.id.cardsViewFragment, FRAGMENT_CARDS_TAG)
     }

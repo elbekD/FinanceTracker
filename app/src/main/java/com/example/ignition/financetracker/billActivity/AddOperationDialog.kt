@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ignition.financetracker.R
+import com.example.ignition.financetracker.R.id.sum
 import com.example.ignition.financetracker.repository.Repository
-import kotlinx.android.synthetic.main.add_operation_dialog_fragment.*
 
 class AddOperationDialog : DialogFragment() {
 
