@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import java.math.BigDecimal
 
 class FragmentBill : Fragment() {
-    private var userCurrency = CurrencyType.RUB
     private var fakeData = Repository().getData()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,15 +46,15 @@ class FragmentBill : Fragment() {
 
     /**
      * Method for changint USD sum on RUB. Also change currency icon
-     * @param type of currency,
+     * @param toCurrency of currency,
      * @param coefficient for changing currency
-     * @param toCurrency what currency want to show
-     * @param id of icon for currency type
-     * @param currentValuta currency which is showing now
+     * @param currentCurrency what currency want to show
+     * @param imageView of icon for currency type
+     * @param resId currency which is showing now
      */
 
-    private fun toOtherCurrency(toCurrency: CurrencyType = CurrencyType.RUB, coefficient: Double, imageView: ImageView, resId: Int, currentValuta: CurrencyType) {
-        if (currentValuta != toCurrency) {
+    private fun toOtherCurrency(toCurrency: CurrencyType = CurrencyType.RUB, coefficient: Double, imageView: ImageView, resId: Int, currentCurrency: CurrencyType) {
+        if (currentCurrency != toCurrency) {
             balanceTv.text = String.format(FinancialOperations.convertCurrency(balanceTv.text.toString().toBigDecimal(), BigDecimal.valueOf(coefficient))
                     .toString())
             setImage(imageView, resId)

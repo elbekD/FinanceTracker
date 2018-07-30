@@ -18,21 +18,18 @@ class AddOperationDialog : DialogFragment() {
         val inflater = LayoutInflater.from(activity)
 
         builder.setView(inflater.inflate(R.layout.add_operation_dialog_fragment, null))
-                .setPositiveButton(R.string.yes) { _, which ->
+                .setPositiveButton(R.string.yes) { _, _ ->
                     Repository().addOperations(sum.toString())
                 }
-                .setNegativeButton(R.string.no) { dialog, which -> dialog.cancel() }
+                .setNegativeButton(R.string.no) { dialog, _ -> dialog.cancel() }
 
 
         return builder.create()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val inflater = LayoutInflater.from(activity)
 
-        val view = inflater.inflate(R.layout.add_operation_dialog_fragment, container)
-
-        return view
+        return LayoutInflater.from(activity).inflate(R.layout.add_operation_dialog_fragment, container)
     }
 
 
