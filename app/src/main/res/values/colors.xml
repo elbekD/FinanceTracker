@@ -6,5 +6,9 @@
     <color name="colorBlack">#000</color>
     <color name="colorWhite">#fff</color>
     <color name="colorSilver">#C0C0C0</color>
-
+    <color name="backgroundMainColor">#40414D</color>
+    <color name="cvBackgroundColor">#474957</color>
+    <color name="textCVColor">#7B7E8E</color>
+    <color name="green">#9CCB70</color>
+    <color name="outcomeColor">#C5A69B</color>
 </resources>

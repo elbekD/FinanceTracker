@@ -1,21 +1,19 @@
 package com.example.ignition.financetracker.billActivity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import com.example.ignition.financetracker.financialOperations.FinancialOperations
-import com.example.ignition.financetracker.financialOperations.CurrencyType
 import com.example.ignition.financetracker.R
-import com.example.ignition.financetracker.networking.CurrencyCourseAPI
-
+import com.example.ignition.financetracker.billStatisticAvtivity.BillStatisticActivity
+import com.example.ignition.financetracker.entities.AvailableOperations
+import com.example.ignition.financetracker.entities.CurrencyType
+import com.example.ignition.financetracker.financialOperations.FinancialOperations
 import com.example.ignition.financetracker.repository.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.math.BigDecimal
 
@@ -36,16 +34,14 @@ class FragmentBill : Fragment() {
     private fun initViews() {
 
         balanceTv.text = String.format(FinancialOperations.getCurrentBalance(fakeData).toString())
-        // Case ruble infor button clicked -> show RUB balance and change icon on RUB synbol, it RUB is showed -> do nothing
-        rubCurrencyButton.setOnClickListener {
-            toOtherCurrency(CurrencyType.RUB, 0.01, currentCurrency, R.drawable.currency_rub, userCurrency)
-            userCurrency = CurrencyType.RUB
-        }
+        val currentLastIncome = fakeData.findLast { it.availableOperations == AvailableOperations.INCOME }
+        incomeValue.text = currentLastIncome?.value.toString()
+        val currentLastOutcome = fakeData.findLast { it.availableOperations == AvailableOperations.OUTCOME }
+        outcomeValue.text = currentLastOutcome?.value.toString()
 
-        dollarCurrencyButton.setOnClickListener {
-            toOtherCurrency(CurrencyType.USD, 60.0, currentCurrency, R.drawable.currency_usd, userCurrency)
-            userCurrency = CurrencyType.USD
-        }
+        startBillStatisticActivity(balanceTv, context)
+        startBillStatisticActivity(your_balance_text, context)
+
     }
 
 
@@ -74,5 +70,7 @@ class FragmentBill : Fragment() {
      */
     private fun setImage(imageView: ImageView, resId: Int) = imageView.setImageResource(resId)
 
-
+    private fun startBillStatisticActivity(view: View, context: Context?) {
+        view.setOnClickListener { startActivity(Intent(context, BillStatisticActivity::class.java)) }
+    }
 }
