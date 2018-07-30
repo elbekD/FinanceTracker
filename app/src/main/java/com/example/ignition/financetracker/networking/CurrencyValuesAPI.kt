@@ -1,7 +1,7 @@
 package com.example.ignition.financetracker.networking
 
 
-import com.example.ignition.financetracker.entities.Model
+import com.example.ignition.financetracker.entities.CurrencyCourseModel
 
 import io.reactivex.Single
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,7 +11,7 @@ import retrofit2.http.GET
 interface CurrencyCourseAPI {
 
     @GET("/daily_json.js")
-    fun getCourse(): Single<Model.Data>
+    fun getCourse(): Single<CurrencyCourseModel.Data>
 
     companion object Factory {
         fun create(): CurrencyCourseAPI {

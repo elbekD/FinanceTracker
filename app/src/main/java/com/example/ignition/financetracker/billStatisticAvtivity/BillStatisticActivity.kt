@@ -6,7 +6,7 @@ import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.addFragment
 
 class BillStatisticActivity : AppCompatActivity() {
-    val STATISTIC_FRAGMENT_TAG = "STATISTIC_FRAGMENT_TAG"
+    private val FRAGMENT_TAG_STATIC_SCREEN = "static_fragment_tag"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,8 +15,8 @@ class BillStatisticActivity : AppCompatActivity() {
         initFragments()
     }
 
-    fun initFragments() {
-        addFragment(StatisticFragment(), R.id.fragmentStatistic, STATISTIC_FRAGMENT_TAG)
+    private fun initFragments() {
+        addFragment(StatisticFragment(), R.id.fragmentStatistic, FRAGMENT_TAG_STATIC_SCREEN)
     }
 
     override fun onBackPressed() {
