@@ -1,7 +1,6 @@
 package com.example.ignition.financetracker.billActivity
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,9 @@ import com.example.ignition.financetracker.repository.Repository
 
 
 class SwipeDialogVariantsAdapter(context: Context?) : PagerAdapter() {
-    val fakeOptions = Repository().getOperations()
+    private val fakeOptions = Repository().getOperations()
 
-    val layoutInflater = LayoutInflater.from(context)
+    private val layoutInflater = LayoutInflater.from(context)
 
     override fun getCount(): Int = fakeOptions.size
 
@@ -27,7 +26,6 @@ class SwipeDialogVariantsAdapter(context: Context?) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = layoutInflater.inflate(R.layout.swipe_text_operations, container, false)
 
-        val constraintLayout: ConstraintLayout = view.findViewById(R.id.swipe_text_layout)
         val textSwipe: TextView = view.findViewById(R.id.swipe_text_options)
         val resId = fakeOptions[position]
 
