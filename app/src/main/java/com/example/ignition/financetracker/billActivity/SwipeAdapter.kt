@@ -1,6 +1,7 @@
 package com.example.ignition.financetracker.billActivity
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,9 @@ import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.repository.Repository
 
 class SwipeAdapter(context: Context?) : PagerAdapter() {
-    private val fakeImageData = Repository().getFakeImages()
+    val fakeImageData = Repository().getFakeImages()
 
-    private val layoutInflater = LayoutInflater.from(context)
+    val layoutInflater = LayoutInflater.from(context)
 
     override fun getCount(): Int = fakeImageData.size
 
@@ -25,6 +26,7 @@ class SwipeAdapter(context: Context?) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = layoutInflater.inflate(R.layout.swipe_cards, container, false)
 
+        val constraintLayout: ConstraintLayout = view.findViewById(R.id.swipeLayout)
 
         val imageView: ImageView = view.findViewById(R.id.card_image)
         val resId = fakeImageData[position]

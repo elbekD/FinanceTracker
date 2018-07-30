@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.diagram_fragment.*
 import java.math.BigDecimal
 
 class StatisticFragment : Fragment() {
-    private var currentShowedCurrency = CurrencyType.RUB
+    var currentShowedCurrency = CurrencyType.RUB
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.diagram_fragment, container, false)
     }
@@ -56,7 +56,7 @@ class StatisticFragment : Fragment() {
         }
     }
 
-    private val repository = ICurrencyInfoRepository.provideCurrencyCurseValue()
+    val repository = ICurrencyInfoRepository.provideCurrencyCurseValue()
             .usdCourseValue()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
