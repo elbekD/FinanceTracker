@@ -1,5 +1,7 @@
 package com.example.ignition.financetracker.financialOperations
 
+import com.example.ignition.financetracker.entities.AvailableOperations
+import com.example.ignition.financetracker.entities.CurrencyEntity
 import java.math.BigDecimal
 
 //financial operations

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ignition.financetracker">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -19,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".settingsActivity.SettingsActivity" />
-        <activity android:name=".aboutActivity.InfoActivity"></activity>
+        <activity android:name=".aboutActivity.InfoActivity" />
+        <activity android:name=".billStatisticAvtivity.BillStatisticActivity"></activity>
     </application>
 
 </manifest>

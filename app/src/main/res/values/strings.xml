@@ -2,7 +2,7 @@
     <string name="app_name">Finance Tracker</string>
     <string name="main_screen_toolbar">Личный счёт</string>
     <string name="hardcoded_sum_rub">3299.0</string>
-    <string name="your_balance">Ваш баланс:</string>
+    <string name="your_balance">Ваш баланс</string>
     <string name="balance">Баланс</string>
     <string name="settings_text">Настройки приложения</string>
     <string name="about_app2">О приложении</string>
@@ -10,4 +10,16 @@
     <string name="version">Версия</string>
     <string name="about_app_finance_tracker">О приложении Finance Tracker</string>
     <string name="your_history">Тут должна быть история ваших операций</string>
+    <string name="cards">Карты</string>
+    <string name="income">Прибыль</string>
+    <string name="outcome">Убыток</string>
+    <string name="products">Продукты</string>
+    <string name="communalPayments">Комунальные платежи</string>
+    <string name="dress">Одежда</string>
+    <string name="incomeFromPayment">Денежный перевод</string>
+    <string name="chooseDialogOption">Выберите операцию</string>
+    <string name="enterSum">Введите сумму</string>
+    <string name="yes">Сохранить</string>
+    <string name="no">Вернуться</string>
+
 </resources>

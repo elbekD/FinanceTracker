@@ -6,7 +6,6 @@ import com.example.ignition.financetracker.networking.CurrencyCourseAPI
 import io.reactivex.Single
 
 
-
 class CurrencyInfoRepository(val currencyCourseAPI: CurrencyCourseAPI) {
 
     fun usdCourseValue(): Single<Model.Data> {
