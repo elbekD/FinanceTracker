@@ -4,51 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BillActivity.BillScreen">
+    android:background="@color/backgroundMainColor"
+    tools:context=".ui.billActivity.BillScreen">
+
 
     <FrameLayout
-        android:id="@+id/frgmCont"
-        android:layout_width="392dp"
-        android:layout_height="266dp"
+        android:id="@+id/fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="?colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/balance"
-            android:textColor="@color/colorWhite"
-            android:textSize="35sp" />
-
-        <ImageView
-            android:id="@+id/settingMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="240dp"
-            android:src="@drawable/settings_outline" />
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/addOperation"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/file_plus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/seeList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/your_history"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frgmCont" />
+        android:background="@drawable/arrow_collapse_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
