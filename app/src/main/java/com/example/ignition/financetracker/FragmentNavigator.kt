@@ -3,9 +3,10 @@ package com.example.ignition.financetracker
 import android.support.annotation.AnimRes
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import com.example.ignition.financetracker.entities.CardEntity
 
-//fragment navigator, will be useful in future
 
 fun AppCompatActivity.replaceFragment(
         fragment: Fragment,
@@ -30,4 +31,23 @@ fun AppCompatActivity.replaceFragment(
 fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int, tag: String) {
     supportFragmentManager.beginTransaction().replace(frameId, fragment, tag).addToBackStack(fragment.javaClass.name).commit()
 }
+
+inline fun ViewPager.seViewPagertCustomListener(viewPager: ViewPager, data: List<CardEntity>, crossinline settingViewChanges: (pos: Int, data: List<CardEntity>) -> Unit) {
+    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+        override fun onPageSelected(position: Int) {
+
+        }
+
+        // This method will be invoked when the current page is scrolled
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            settingViewChanges(position, data)
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+        }
+    })
+}
+
+
 

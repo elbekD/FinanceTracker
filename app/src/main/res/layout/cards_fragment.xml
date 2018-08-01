@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundMainColor">
@@ -48,14 +49,160 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/cardsSwitcher"
         android:layout_width="267dp"
-        android:layout_height="fill_parent"
+        android:layout_height="222dp"
         android:layout_gravity="center"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="116dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/balanceCV"
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/cvBackgroundColor"
+        card_view:background="@color/cvBackgroundColor"
+        card_view:cardCornerRadius="4dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.0"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/cardsSwitcher">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:background="@color/cvBackgroundColor">
+
+            <TextView
+                android:id="@+id/your_balance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/your_balance"
+                android:textColor="@color/textCVColor"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.021" />
+
+            <TextView
+                android:id="@+id/balanceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:text="@string/hardcoded_sum_rub"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0" />
+
+
+            <ImageView
+                android:id="@+id/currentCurrency"
+                android:layout_width="30dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/currency_rub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/balanceTv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/textCVColor"
+                card_view:layout_constraintStart_toStartOf="@+id/line1"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="68dp"
+                android:background="@color/textCVColor"
+                card_view:layout_constraintStart_toEndOf="@+id/currentCurrency"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/incomeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/income"
+                android:textColor="@color/textCVColor"
+                android:textSize="15sp"
+                card_view:layout_constraintStart_toStartOf="@+id/line1"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvOutcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="48dp"
+                android:text="@string/outcome"
+                android:textColor="@color/textCVColor"
+                android:textSize="15sp"
+                card_view:layout_constraintStart_toStartOf="@+id/line1"
+                card_view:layout_constraintTop_toBottomOf="@+id/incomeTv" />
+
+            <TextView
+                android:id="@+id/incomeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/green"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.919"
+                card_view:layout_constraintStart_toEndOf="@+id/incomeTv"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/outcomeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="48dp"
+                android:textColor="@color/outcomeColor"
+                android:textSize="15sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/incomeValue" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
 </android.support.constraint.ConstraintLayout>

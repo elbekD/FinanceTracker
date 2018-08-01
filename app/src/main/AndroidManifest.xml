@@ -12,16 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".billActivity.BillScreen">
+        <activity android:name=".ui.billActivity.BillScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".settingsActivity.SettingsActivity" />
-        <activity android:name=".aboutActivity.InfoActivity" />
-        <activity android:name=".billStatisticAvtivity.BillStatisticActivity"></activity>
+        <activity android:name=".ui.settingsActivity.SettingsActivity" />
+        <activity android:name=".ui.aboutActivity.InfoActivity" />
+        <activity android:name=".ui.billStatisticAvtivity.BillStatisticActivity"></activity>
     </application>
 
 </manifest>

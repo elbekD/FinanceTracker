@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.billActivity
+package com.example.ignition.financetracker.adapters
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter
@@ -10,7 +10,8 @@ import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.repository.Repository
 
 class SwipeAdapter(context: Context?) : PagerAdapter() {
-    private val fakeImageData = Repository().getFakeImages()
+    private val fakeImageData = Repository().getCardData()
+
 
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -27,11 +28,13 @@ class SwipeAdapter(context: Context?) : PagerAdapter() {
 
 
         val imageView: ImageView = view.findViewById(R.id.card_image)
-        val resId = fakeImageData[position]
+        val resId = fakeImageData[position].cardLogoRes
 
         imageView.setImageResource(resId)
         container.addView(view)
 
         return view
     }
+
+
 }

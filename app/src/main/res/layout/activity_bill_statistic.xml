@@ -5,19 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cvBackgroundColor"
-    tools:context=".billStatisticAvtivity.BillStatisticActivity">
+    tools:context=".ui.billStatisticAvtivity.BillStatisticActivity">
 
     <FrameLayout
         android:id="@+id/fragmentStatistic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </android.support.constraint.ConstraintLayout>

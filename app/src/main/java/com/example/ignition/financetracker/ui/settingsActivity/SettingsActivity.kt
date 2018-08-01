@@ -1,10 +1,10 @@
-package com.example.ignition.financetracker.settingsActivity
+package com.example.ignition.financetracker.ui.settingsActivity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.ignition.financetracker.R
-import com.example.ignition.financetracker.aboutActivity.InfoActivity
+import com.example.ignition.financetracker.ui.aboutActivity.InfoActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {

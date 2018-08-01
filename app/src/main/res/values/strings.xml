@@ -23,5 +23,12 @@
     <string name="no">Вернуться</string>
     <string name="hint_enter_value">Введите значение</string>
     <string name="descr_add_card">Добавить карту</string>
+    <string name="select_operation">Выберите операцию</string>
+    <string-array name="operations">
+        <item>Продукты </item>
+        <item>Комунальные платежи </item>
+        <item>Одежда </item>
+        <item>Перевод </item>
 
+    </string-array>
 </resources>
