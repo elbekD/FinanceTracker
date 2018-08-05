@@ -35,12 +35,26 @@
     <string name="hint_walletType">Тип кошелька</string>
     <string name="all_mainCurrency">Основная валюта</string>
     <string name="all_secondaryCurrency">Дополнительная валюта</string>
+    <string name="operation_repeatPeriodically">Повторять периодически</string>
+    <string name="operation_periodDescription">Повторять каждое %d число месяца</string>
+    <string name="operation_repeatBegin">Повторять каждое</string>
+    <string name="operation_repeatEnd">число месяца</string>
 
     <string-array name="operations">
         <item>Продукты </item>
         <item>Комунальные платежи </item>
         <item>Одежда </item>
         <item>Перевод </item>
+    </string-array>
+
+    <string-array name="operation_period">
+        <item>Секунда</item>
+        <item>Минута</item>
+        <item>Час</item>
+        <item>День</item>
+        <item>Неделя</item>
+        <item>Месяц</item>
+        <item>Год</item>
     </string-array>
 
 </resources>

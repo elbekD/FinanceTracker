@@ -42,4 +42,8 @@ class AddOperationDialogPresenter private constructor(
                 .observeOn(sp.ui())
                 .subscribe { card -> view?.changeMainCurrency(card.mainCurrency) })
     }
+
+    override fun periodClick(show: Boolean) {
+        view?.showPeriodPicker(show)
+    }
 }

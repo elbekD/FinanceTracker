@@ -10,7 +10,11 @@ import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.CardsPageAdapter
 import com.example.ignition.financetracker.adapters.createWalletModelFrom
 import com.example.ignition.financetracker.entities.Operation
+import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
+import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
+import com.example.ignition.financetracker.ui.main.WalletModel
+import com.example.ignition.financetracker.ui.main.WalletOperationModel
 import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardDialog
 import com.example.ignition.financetracker.ui.main.addOperationDialog.AddOperationDialog
 import kotlinx.android.synthetic.main.cards_fragment.*
@@ -70,8 +74,8 @@ class WalletsFragment : Fragment(),
         presenter.addWallet(c)
     }
 
-    override fun onAddOperationClick(o: Operation) {
-        presenter.commitOperation(o)
+    override fun onAddOperationClick(ro: RepeatableOperationModel) {
+        presenter.commitOperation(ro)
     }
 
     override fun addWalletToPager(c: Wallet) {
@@ -84,7 +88,7 @@ class WalletsFragment : Fragment(),
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
     }
 
-    override fun updateWalletModel(wOp: WalletOperation) {
+    override fun updateWalletModel(wOp: WalletOperationModel) {
         val m = listOfCards.find { it.w.name == wOp.operation.walletName }
         m?.let { model ->
             val balance = model.balance + wOp.operation.sum * wOp.operation.rate

@@ -13,7 +13,10 @@ import io.reactivex.Single
 @Dao
 interface OperationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOperation(t: Operation)
+    fun insertOperation(t: Operation): Long
+
+    @Query("select * from operation where id = :operationId")
+    fun getOperationById(operationId: Long): Operation
 
     @Query("select * from operation where walletName = :name")
     fun cardOperations(name: String): Single<List<Operation>>

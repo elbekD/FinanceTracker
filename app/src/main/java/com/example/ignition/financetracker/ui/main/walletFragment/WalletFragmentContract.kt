@@ -1,10 +1,11 @@
 package com.example.ignition.financetracker.ui.main.walletFragment
 
-import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.MvpPresenter
 import com.example.ignition.financetracker.ui.base.MvpView
-import java.math.BigDecimal
+import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
+import com.example.ignition.financetracker.ui.main.WalletModel
+import com.example.ignition.financetracker.ui.main.WalletOperationModel
 
 interface CardFragmentContract {
     interface View : MvpView {
@@ -12,24 +13,15 @@ interface CardFragmentContract {
         fun addWalletToPager(c: Wallet)
         fun showAddWalletDialog()
         fun showTransactionDialog()
-        fun updateWalletModel(wOp: WalletOperation)
+        fun updateWalletModel(wOp: WalletOperationModel)
         fun showError(msg: String)
     }
 
     interface Presenter : MvpPresenter<CardFragmentContract.View> {
         fun load()
         fun addWallet(w: Wallet)
-        fun commitOperation(o: Operation)
+        fun commitOperation(rom: RepeatableOperationModel)
         fun onOpenAddWalletClick()
         fun onAddTransactionClick()
     }
 }
-
-data class WalletModel(val w: Wallet,
-                       val balance: BigDecimal,
-                       val secondaryBalance: BigDecimal,
-                       val incomeValue: BigDecimal,
-                       val outcomeValue: BigDecimal)
-
-data class WalletOperation(val operation: Operation,
-                           val mainToSecondaryRate: BigDecimal)

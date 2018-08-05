@@ -1,7 +1,7 @@
 package com.example.ignition.financetracker.adapters
 
 import com.example.ignition.financetracker.entities.Wallet
-import com.example.ignition.financetracker.ui.main.walletFragment.WalletModel
+import com.example.ignition.financetracker.ui.main.WalletModel
 import java.math.BigDecimal
 
 /**

@@ -83,11 +83,49 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_transaction_date"
+            android:id="@+id/tv_transactionDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="20sp" />
 
+        <Switch
+            android:id="@+id/switch_transactionPeriodDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/operation_repeatPeriodically" />
+
+        <LinearLayout
+            android:id="@+id/group_operationPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="@string/operation_repeatBegin" />
+
+            <EditText
+                android:id="@+id/input_operationPeriod"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="@string/operation_repeatEnd" />
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

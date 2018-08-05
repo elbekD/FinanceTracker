@@ -2,9 +2,12 @@ package com.example.ignition.financetracker.ui.main.walletFragment
 
 import com.example.ignition.financetracker.data.DataSource
 import com.example.ignition.financetracker.entities.ExchangeRate
-import com.example.ignition.financetracker.entities.Operation
+import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.BasePresenter
+import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
+import com.example.ignition.financetracker.ui.main.WalletModel
+import com.example.ignition.financetracker.ui.main.WalletOperationModel
 import com.example.ignition.financetracker.utils.SchedulersProvider
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -43,7 +46,7 @@ private constructor(dataSource: DataSource,
                                             .filter { it.sum < BigDecimal.ZERO }
                                             .sumByDouble { (it.sum * it.rate).toDouble() }
                                             .toBigDecimal().negate()
-                                    val balance = income + outcome
+                                    val balance = income - outcome
                                     val secondaryBalance = balance * rate.rate
                                     res.add(WalletModel(wallet, balance, secondaryBalance, income, outcome))
                                 }
@@ -70,22 +73,21 @@ private constructor(dataSource: DataSource,
                 .subscribe { _ -> view?.addWalletToPager(w) })
     }
 
-    override fun commitOperation(o: Operation) {
-        compositeDisposable.add(dataSource.getWalletByName(o.walletName)
+    override fun commitOperation(rom: RepeatableOperationModel) {
+        compositeDisposable.add(dataSource.getWalletByName(rom.operation.walletName)
                 .flatMap {
-                    Single.zip(dataSource.getRate(o.currency, it.mainCurrency),
+                    Single.zip(
+                            dataSource.getRate(rom.operation.currency, it.mainCurrency),
                             dataSource.getRate(it.mainCurrency, it.secondaryCurrency),
                             BiFunction { r1: ExchangeRate, r2: ExchangeRate -> r1 to r2 })
                 }
                 .map { rates ->
-                    val res = Operation(o.walletName,
-                            o.operationType,
-                            o.sum,
-                            o.currency,
-                            o.date,
-                            rates.first.rate)
-                    dataSource.insertOperation(res)
-                    WalletOperation(res, rates.second.rate)
+                    val resultingOperation = rom.operation.copy(rate = rates.first.rate)
+                    val operationId = dataSource.insertOperation(resultingOperation)
+                    if (rom.repeatDate > 0) {
+                        dataSource.insertRepeatableOperation(RepeatableOperation(operationId, rom.repeatDate))
+                    }
+                    WalletOperationModel(resultingOperation, rates.second.rate)
                 }
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())

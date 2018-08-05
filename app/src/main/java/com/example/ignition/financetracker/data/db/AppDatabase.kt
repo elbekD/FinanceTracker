@@ -18,7 +18,8 @@ import java.util.concurrent.Executors
     Operation::class,
     Category::class,
     Currency::class,
-    ExchangeRate::class
+    ExchangeRate::class,
+    RepeatableOperation::class
 ], version = 1)
 @TypeConverters(value = [BigDecimalConverter::class])
 abstract class AppDatabase : RoomDatabase() {
@@ -53,4 +54,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun currencyDao(): CurrencyDao
     abstract fun exchangeRateDao(): ExchangeRateDao
+    abstract fun repeatableOperationDao(): RepeatableOperationDao
 }

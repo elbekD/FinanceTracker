@@ -1,6 +1,5 @@
 package com.example.ignition.financetracker.ui.main.addOperationDialog
 
-import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.ui.base.MvpPresenter
 import com.example.ignition.financetracker.ui.base.MvpView
 
@@ -10,10 +9,12 @@ class AddOperationDialogContract {
         fun setupCurrencyAdapter(currencies: List<String>)
         fun setupCategoryAdapter(categories: List<String>)
         fun setupCardsAdapter(cards: List<String>)
+        fun showPeriodPicker(show: Boolean)
     }
 
     interface Presenter : MvpPresenter<AddOperationDialogContract.View> {
         fun load()
         fun onCardSelected(cardName: String)
+        fun periodClick(show: Boolean)
     }
 }

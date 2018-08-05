@@ -26,12 +26,19 @@ class BillScreen : AppCompatActivity(), BillScreenContract.View {
 
         presenter = BillScreenModule.provideBillScreenPresenter()
         presenter.attachView(this)
+        presenter.load()
         initViews()
 
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                     .add(R.id.fragment_holder, WalletsFragment.newInstance(), null)
                     .commit()
+    }
+
+    override fun onDestroy() {
+        presenter.detachView()
+        if (isFinishing) presenter.destroy()
+        super.onDestroy()
     }
 
     override fun showSettings() {

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ignition.financetracker.R
-import com.example.ignition.financetracker.ui.main.walletFragment.WalletModel
+import com.example.ignition.financetracker.ui.main.WalletModel
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.card_container.view.*
 

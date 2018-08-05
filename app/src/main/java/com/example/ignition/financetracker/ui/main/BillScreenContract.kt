@@ -10,5 +10,6 @@ interface BillScreenContract {
 
     interface Presenter : MvpPresenter<BillScreenContract.View> {
         fun onSettingsClick()
+        fun load()
     }
 }
