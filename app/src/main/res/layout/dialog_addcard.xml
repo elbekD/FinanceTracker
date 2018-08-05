@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/input_newWalletName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/hint_walletName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_newMainCurrency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/all_mainCurrency"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/input_newWalletName"
+        app:layout_constraintTop_toBottomOf="@+id/input_newWalletName" />
+
+    <Spinner
+        android:id="@+id/spinner_newWalletMainCurrency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/input_newWalletName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_newMainCurrency"
+        app:layout_constraintTop_toTopOf="@+id/tv_newMainCurrency" />
+
+    <TextView
+        android:id="@+id/tv_newWalletSecondaryCurrency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/all_secondaryCurrency"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_newMainCurrency"
+        app:layout_constraintTop_toBottomOf="@+id/tv_newMainCurrency" />
+
+    <Spinner
+        android:id="@+id/spinner_newWalletSecondaryCurrency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_newWalletMainCurrency"
+        app:layout_constraintStart_toEndOf="@+id/tv_newWalletSecondaryCurrency"
+        app:layout_constraintTop_toTopOf="@+id/tv_newWalletSecondaryCurrency" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/input_walletType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/hint_walletType"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_newWalletSecondaryCurrency"
+        app:layout_constraintStart_toStartOf="@+id/tv_newWalletSecondaryCurrency"
+        app:layout_constraintTop_toBottomOf="@+id/tv_newWalletSecondaryCurrency" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,34 +1,46 @@
 <resources>
     <string name="app_name">Finance Tracker</string>
+
     <string name="main_screen_toolbar">Личный счёт</string>
     <string name="hardcoded_sum_rub">3299.0</string>
     <string name="your_balance">Ваш баланс</string>
     <string name="balance">Баланс</string>
     <string name="settings_text">Настройки приложения</string>
-    <string name="about_app2">О приложении</string>
-    <string name="about_app">О ПРИЛОЖЕНИИ</string>
+    <string name="about_app">О приложении</string>
     <string name="version">Версия</string>
     <string name="about_app_finance_tracker">О приложении Finance Tracker</string>
     <string name="your_history">Тут должна быть история ваших операций</string>
-    <string name="cards">Карты</string>
+
+    <string name="wallets">Карты</string>
     <string name="income">Прибыль</string>
     <string name="outcome">Убыток</string>
     <string name="products">Продукты</string>
     <string name="communalPayments">Комунальные платежи</string>
     <string name="dress">Одежда</string>
     <string name="incomeFromPayment">Денежный перевод</string>
+
     <string name="chooseDialogOption">Выберите операцию</string>
     <string name="enterSum">Введите сумму</string>
     <string name="yes">Сохранить</string>
     <string name="no">Вернуться</string>
+
     <string name="hint_enter_value">Введите значение</string>
     <string name="descr_add_card">Добавить карту</string>
     <string name="select_operation">Выберите операцию</string>
+    <string name="bottom_nav_menu_balance">Баланс</string>
+    <string name="all_amount">Введите сумму</string>
+    <string name="all_expense">Расход</string>
+    <string name="all_income">Доход</string>
+    <string name="hint_walletName">Название кошелька</string>
+    <string name="hint_walletType">Тип кошелька</string>
+    <string name="all_mainCurrency">Основная валюта</string>
+    <string name="all_secondaryCurrency">Дополнительная валюта</string>
+
     <string-array name="operations">
         <item>Продукты </item>
         <item>Комунальные платежи </item>
         <item>Одежда </item>
         <item>Перевод </item>
-
     </string-array>
+
 </resources>

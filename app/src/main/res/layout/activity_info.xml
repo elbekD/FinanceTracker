@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundMainColor"
-    tools:context=".ui.aboutActivity.InfoActivity">
+    tools:context=".ui.about.InfoActivity">
 
 
     <ImageView
@@ -18,7 +17,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:background="@color/backgroundMainColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/app_name"
-        android:textColor="@color/textCVColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -50,7 +47,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/version"
-        android:textColor="@color/textCVColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +62,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:text="@string/versionName"
-        android:textColor="@color/textCVColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.269"
         app:layout_constraintStart_toEndOf="@+id/versionText"
