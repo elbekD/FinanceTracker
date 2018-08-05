@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.CardsPageAdapter
 import com.example.ignition.financetracker.adapters.createWalletModelFrom
@@ -79,21 +80,31 @@ class WalletsFragment : Fragment(),
         cardsPager.currentItem = listOfCards.size - 1
     }
 
-    override fun updateWalletModel(o: Operation) {
-        val m = (cardsPager.adapter as CardsPageAdapter).getWalletModel(o.walletName)
-        val balance = m.balance + o.sum
-        val secondaryBalance = m.secondaryBalance + o.sum / o.rate
-        val (deltaIn, deltaOut) = if (o.sum > BigDecimal.ZERO) (o.sum to BigDecimal.ZERO) else (BigDecimal.ZERO to -o.sum)
-        val updatedModel = WalletModel(m.w, balance,
-                secondaryBalance,
-                m.incomeValue + deltaIn,
-                m.outcomeValue + deltaOut)
+    override fun showError(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+    }
 
-        listOfCards.find { it.w.name == o.walletName }?.let {
-            val i = listOfCards.indexOf(it)
-            listOfCards.removeAt(i)
-            listOfCards.add(i, updatedModel)
-            cardsPager.adapter?.notifyDataSetChanged()
+    override fun updateWalletModel(wOp: WalletOperation) {
+        val m = listOfCards.find { it.w.name == wOp.operation.walletName }
+        m?.let { model ->
+            val balance = model.balance + wOp.operation.sum * wOp.operation.rate
+            val secondaryBalance = balance * wOp.mainToSecondaryRate
+
+            val (deltaIn, deltaOut)
+                    = if (wOp.operation.sum > BigDecimal.ZERO) (wOp.operation.sum * wOp.operation.rate to BigDecimal.ZERO)
+            else (BigDecimal.ZERO to wOp.operation.sum * wOp.operation.rate.negate())
+
+            val updatedModel = WalletModel(model.w, balance,
+                    secondaryBalance,
+                    model.incomeValue + deltaIn,
+                    model.outcomeValue + deltaOut)
+
+            listOfCards.find { it.w.name == wOp.operation.walletName }?.let {
+                val i = listOfCards.indexOf(it)
+                listOfCards.removeAt(i)
+                listOfCards.add(i, updatedModel)
+                cardsPager.adapter?.notifyDataSetChanged()
+            }
         }
     }
 }

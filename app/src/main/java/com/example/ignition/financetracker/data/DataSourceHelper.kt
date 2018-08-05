@@ -27,17 +27,29 @@ class DataSourceHelper(private val db: Database,
 
     // TODO if no internet connection
     override fun getRate(from: String, to: String): Single<ExchangeRate> {
-        return db.getRate(from, to)
-                .onErrorResumeNext { _ ->
-                    val fromTo = "${from}_$to"
-                    api.getCourse(mapOf("q" to fromTo, "compact" to "ultra"))
-                            .flatMap { rateFromApi ->
-                                val rate = rateFromApi[fromTo].asDouble
-                                val date = Calendar.getInstance().timeInMillis
-                                val exRate = ExchangeRate(fromTo, rate.toBigDecimal(), date)
-                                db.insertRate(exRate)
-                                Single.just(exRate)
-                            }
+        val fromTo = "${from}_$to"
+        if (from == to)
+            return Single.just(ExchangeRate.default(fromTo))
+
+        return api.getCourse(mapOf("q" to fromTo, "compact" to "ultra"))
+                .flatMap { rateFromApi ->
+                    val rate = rateFromApi[fromTo].asDouble
+                    val date = Calendar.getInstance().timeInMillis
+                    val exRate = ExchangeRate(fromTo, rate.toBigDecimal(), date)
+                    db.insertRate(exRate)
+                    Single.just(exRate)
                 }
+                .onErrorResumeNext { _ -> db.getRate(from, to) }
+//        return db.getRate(from, to)
+//                .onErrorResumeNext { _ ->
+//                    api.getCourse(mapOf("q" to fromTo, "compact" to "ultra"))
+//                            .flatMap { rateFromApi ->
+//                                val rate = rateFromApi[fromTo].asDouble
+//                                val date = Calendar.getInstance().timeInMillis
+//                                val exRate = ExchangeRate(fromTo, rate.toBigDecimal(), date)
+//                                db.insertRate(exRate)
+//                                Single.just(exRate)
+//                            }
+//                }
     }
 }

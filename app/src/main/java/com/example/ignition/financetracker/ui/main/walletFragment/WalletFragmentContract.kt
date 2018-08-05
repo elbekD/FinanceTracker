@@ -12,7 +12,8 @@ interface CardFragmentContract {
         fun addWalletToPager(c: Wallet)
         fun showAddWalletDialog()
         fun showTransactionDialog()
-        fun updateWalletModel(o: Operation)
+        fun updateWalletModel(wOp: WalletOperation)
+        fun showError(msg: String)
     }
 
     interface Presenter : MvpPresenter<CardFragmentContract.View> {
@@ -29,3 +30,6 @@ data class WalletModel(val w: Wallet,
                        val secondaryBalance: BigDecimal,
                        val incomeValue: BigDecimal,
                        val outcomeValue: BigDecimal)
+
+data class WalletOperation(val operation: Operation,
+                           val mainToSecondaryRate: BigDecimal)

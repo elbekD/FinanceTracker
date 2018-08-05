@@ -5,14 +5,12 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.ui.main.walletFragment.WalletModel
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.card_container.view.*
 
 class CardsPageAdapter(private val ctx: Context?, private val wallets: List<WalletModel>) : PagerAdapter() {
-    private val currentWallets = wallets.toMutableList()
 
     override fun getCount(): Int = wallets.size
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view === `object` as View
@@ -41,10 +39,6 @@ class CardsPageAdapter(private val ctx: Context?, private val wallets: List<Wall
 
         container.addView(v)
         return v
-    }
-
-    fun getWalletModel(walletName: String): WalletModel {
-        return currentWallets.find { it.w.name == walletName }!!
     }
 
     override fun getItemPosition(`object`: Any): Int {

@@ -7,6 +7,7 @@ import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.BasePresenter
 import com.example.ignition.financetracker.utils.SchedulersProvider
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class WalletFragmentPresenter
@@ -36,13 +37,13 @@ private constructor(dataSource: DataSource,
                                 .subscribe { ops ->
                                     val income = ops.asSequence()
                                             .filter { it.sum > BigDecimal.ZERO }
-                                            .sumByDouble { it.sum.toDouble() }
+                                            .sumByDouble { (it.sum * it.rate).toDouble() }
                                             .toBigDecimal()
                                     val outcome = ops.asSequence()
                                             .filter { it.sum < BigDecimal.ZERO }
-                                            .sumByDouble { -it.sum.toDouble() }
-                                            .toBigDecimal()
-                                    val balance = income - outcome
+                                            .sumByDouble { (it.sum * it.rate).toDouble() }
+                                            .toBigDecimal().negate()
+                                    val balance = income + outcome
                                     val secondaryBalance = balance * rate.rate
                                     res.add(WalletModel(wallet, balance, secondaryBalance, income, outcome))
                                 }
@@ -71,19 +72,27 @@ private constructor(dataSource: DataSource,
 
     override fun commitOperation(o: Operation) {
         compositeDisposable.add(dataSource.getWalletByName(o.walletName)
-                .flatMap { dataSource.getRate(o.currency, it.mainCurrency) }
-                .map { rate ->
+                .flatMap {
+                    Single.zip(dataSource.getRate(o.currency, it.mainCurrency),
+                            dataSource.getRate(it.mainCurrency, it.secondaryCurrency),
+                            BiFunction { r1: ExchangeRate, r2: ExchangeRate -> r1 to r2 })
+                }
+                .map { rates ->
                     val res = Operation(o.walletName,
                             o.operationType,
-                            o.sum * rate.rate,
+                            o.sum,
                             o.currency,
                             o.date,
-                            rate.rate)
+                            rates.first.rate)
                     dataSource.insertOperation(res)
-                    res
+                    WalletOperation(res, rates.second.rate)
                 }
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())
-                .subscribe { op -> view?.updateWalletModel(op) })
+                .subscribe({ walletOperation ->
+                    view?.updateWalletModel(walletOperation)
+                }, { err ->
+                    view?.showError(err.message ?: "Unknown error")
+                }))
     }
 }
