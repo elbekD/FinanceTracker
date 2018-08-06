@@ -21,6 +21,8 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            buildConfigField("String", "BASE_URL", "\"https://free.currencyconverterapi.com/api/\"")
+            buildConfigField("String", "DB_NAME", "\"finance.db\"")
         }
 
         release {
@@ -41,22 +43,30 @@ dependencies {
     implementation deps.retrofit.gson
     implementation deps.retrofit.adapter
 
-    implementation deps.dagger.runtime
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
-    kapt deps.dagger.android_support_compiler
-    kapt deps.dagger.compiler
-
     implementation deps.kotlin.stdlib
     implementation deps.mpchart
     implementation deps.rx.rxjava
     implementation deps.rx.rxandroid
 
+    implementation deps.room.runtime
+    implementation deps.room.rxjava
+    kapt deps.room.compiler
+
     testImplementation deps.junit
     testImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.core
+    testImplementation deps.mockito.android
+    androidTestImplementation deps.mockito.android
 
     androidTestImplementation deps.support.appcompat
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.design
+
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation deps.espresso.intents
 }

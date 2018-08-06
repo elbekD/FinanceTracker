@@ -3,26 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backgroundMainColor"
     android:layout_height="match_parent"
-    tools:context=".ui.settingsActivity.SettingsActivity">
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="315dp"
-        android:layout_height="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aboutAppText" />
-
-    <View
-        android:id="@+id/line2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@+id/aboutAppClick" />
+    tools:context=".ui.settings.SettingsActivity">
 
     <TextView
         android:id="@+id/aboutAppText"
@@ -43,7 +25,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/about_app_finance_tracker"
-        android:textColor="@color/colorBlack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutAppText" />
 
