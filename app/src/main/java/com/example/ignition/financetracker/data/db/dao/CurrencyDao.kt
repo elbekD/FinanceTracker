@@ -16,5 +16,8 @@ interface CurrencyDao {
     fun getUserCurrencies(): Single<List<Currency>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg c: Currency)
+    fun insertAll(c: List<Currency>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(c: Currency)
 }

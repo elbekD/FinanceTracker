@@ -2,10 +2,8 @@ package com.example.ignition.financetracker.data
 
 import com.example.ignition.financetracker.data.db.Database
 import com.example.ignition.financetracker.data.networking.CurrencyApi
-import com.example.ignition.financetracker.entities.ExchangeRate
-import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.RepeatableOperation
-import com.example.ignition.financetracker.entities.Wallet
+import com.example.ignition.financetracker.entities.*
+import com.example.ignition.financetracker.entities.Currency
 import io.reactivex.Single
 import java.util.*
 
@@ -29,6 +27,9 @@ class DataSourceHelper(private val db: Database,
     override fun insertRate(r: ExchangeRate) = db.insertRate(r)
     override fun getUserCurrencies() = db.getUserCurrencies()
     override fun getCourse(q: Map<String, String>) = api.getCourse(q)
+
+    override fun insertCurrency(c: Currency) = db.insertCurrency(c)
+    override fun insertAllCurrencies(c: List<Currency>) = db.insertAllCurrencies(c)
 
     // TODO if no internet connection
     override fun getRate(from: String, to: String): Single<ExchangeRate> {

@@ -23,7 +23,7 @@ class AddOperationDialogPresenter private constructor(
                         .map { cards -> cards.map { it.name } }
                         .subscribeOn(sp.io())
                         .observeOn(sp.ui())
-                        .subscribe { cards -> view?.setupCardsAdapter(cards) },
+                        .subscribe { cards -> view?.setupWalletAdapter(cards) },
                 dataSource.getAllCategories()
                         .map { categories -> categories.map { it.name } }
                         .subscribeOn(sp.io())
@@ -36,8 +36,8 @@ class AddOperationDialogPresenter private constructor(
                         .subscribe { curs -> view?.setupCurrencyAdapter(curs) })
     }
 
-    override fun onCardSelected(cardName: String) {
-        compositeDisposable.add(dataSource.getWalletByName(cardName)
+    override fun onWalletSelected(walletName: String) {
+        compositeDisposable.add(dataSource.getWalletByName(walletName)
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())
                 .subscribe { card -> view?.changeMainCurrency(card.mainCurrency) })

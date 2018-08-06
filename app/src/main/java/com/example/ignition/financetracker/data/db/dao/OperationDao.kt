@@ -19,7 +19,7 @@ interface OperationDao {
     fun getOperationById(operationId: Long): Operation
 
     @Query("select * from operation where walletName = :name")
-    fun cardOperations(name: String): Single<List<Operation>>
+    fun walletOperations(name: String): Single<List<Operation>>
 
     @Query("select * from operation")
     fun allOperations(): Single<List<Operation>>

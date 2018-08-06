@@ -97,7 +97,7 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
 
     override fun setupCategoryAdapter(categories: List<String>) = categoryAdapter.addAll(categories)
 
-    override fun setupCardsAdapter(cards: List<String>) = cardAdapter.addAll(cards)
+    override fun setupWalletAdapter(cards: List<String>) = cardAdapter.addAll(cards)
 
     override fun showPeriodPicker(show: Boolean) {
         with(v.findViewById<LinearLayout>(R.id.group_operationPeriod)) {
@@ -130,7 +130,7 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
                     }
 
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        presenter.onCardSelected(selectedItem.toString())
+                        presenter.onWalletSelected(selectedItem.toString())
                     }
                 }
                 adapter = cardAdapter

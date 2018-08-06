@@ -16,12 +16,12 @@ import java.math.BigDecimal
 class WalletFragmentPresenter
 private constructor(dataSource: DataSource,
                     sp: SchedulersProvider) :
-        BasePresenter<CardFragmentContract.View>(dataSource, sp),
-        CardFragmentContract.Presenter {
+        BasePresenter<WalletFragmentContract.View>(dataSource, sp),
+        WalletFragmentContract.Presenter {
 
     companion object {
-        private var INSTANCE: CardFragmentContract.Presenter? = null
-        fun get(dataSource: DataSource, sp: SchedulersProvider): CardFragmentContract.Presenter {
+        private var INSTANCE: WalletFragmentContract.Presenter? = null
+        fun get(dataSource: DataSource, sp: SchedulersProvider): WalletFragmentContract.Presenter {
             if (INSTANCE == null) INSTANCE = WalletFragmentPresenter(dataSource, sp)
             return INSTANCE!!
         }
@@ -62,8 +62,8 @@ private constructor(dataSource: DataSource,
         view?.showAddWalletDialog()
     }
 
-    override fun onAddTransactionClick() {
-        view?.showTransactionDialog()
+    override fun onAddOperationClick() {
+        view?.showOperationDialog()
     }
 
     override fun addWallet(w: Wallet) {

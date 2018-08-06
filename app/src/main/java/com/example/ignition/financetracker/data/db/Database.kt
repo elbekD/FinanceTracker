@@ -28,6 +28,8 @@ interface Database {
     fun getAllCategories(): Single<List<Category>>
 
     // currency
+    fun insertCurrency(c: Currency)
+    fun insertAllCurrencies(c: List<Currency>)
     fun getUserCurrencies(): Single<List<Currency>>
 
     // exchange rate

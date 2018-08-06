@@ -1,9 +1,6 @@
 package com.example.ignition.financetracker.data.db
 
-import com.example.ignition.financetracker.entities.ExchangeRate
-import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.RepeatableOperation
-import com.example.ignition.financetracker.entities.Wallet
+import com.example.ignition.financetracker.entities.*
 import io.reactivex.Single
 
 /**
@@ -29,15 +26,18 @@ class DatabaseHelper private constructor(private val db: AppDatabase) : Database
     override fun getWallets() = db.cardDao().allWallet()
     override fun getWalletByName(name: String) = db.cardDao().walletByName(name)
 
-    override fun insertOperation(t: Operation) = db.transactionDao().insertOperation(t)
-    override fun getOperationById(operationId: Long) = db.transactionDao().getOperationById(operationId)
-    override fun getWalletOperations(name: String) = db.transactionDao().cardOperations(name)
-    override fun getOperations() = db.transactionDao().allOperations()
+    override fun insertOperation(t: Operation) = db.operationDao().insertOperation(t)
+    override fun getOperationById(operationId: Long) = db.operationDao().getOperationById(operationId)
+    override fun getWalletOperations(name: String) = db.operationDao().walletOperations(name)
+    override fun getOperations() = db.operationDao().allOperations()
     override fun getAllCategories() = db.categoryDao().getAllCategories()
 
-    override fun getUserCurrencies() = db.currencyDao().getUserCurrencies()
     override fun insertRate(r: ExchangeRate) = db.exchangeRateDao().insert(r)
     override fun getRate(from: String, to: String) = db.exchangeRateDao().getRate("${from}_$to")
+
+    override fun insertCurrency(c: Currency) = db.currencyDao().insert(c)
+    override fun insertAllCurrencies(c: List<Currency>) = db.currencyDao().insertAll(c)
+    override fun getUserCurrencies() = db.currencyDao().getUserCurrencies()
 
     override fun insertRepeatableOperation(ro: RepeatableOperation) = db.repeatableOperationDao().insert(ro)
     override fun insertAllRepeatableOperations(ros: List<RepeatableOperation>) = db.repeatableOperationDao().insertAll(ros)

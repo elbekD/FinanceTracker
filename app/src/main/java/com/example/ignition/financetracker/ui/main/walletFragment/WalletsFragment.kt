@@ -9,8 +9,6 @@ import android.widget.Toast
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.CardsPageAdapter
 import com.example.ignition.financetracker.adapters.createWalletModelFrom
-import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.ui.main.WalletModel
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.cards_fragment.*
 import java.math.BigDecimal
 
 class WalletsFragment : Fragment(),
-        CardFragmentContract.View,
+        WalletFragmentContract.View,
         AddCardDialog.AddCardListener,
         AddOperationDialog.AddOperationListener {
 
@@ -30,7 +28,7 @@ class WalletsFragment : Fragment(),
         fun newInstance(): Fragment = WalletsFragment()
     }
 
-    private lateinit var presenter: CardFragmentContract.Presenter
+    private lateinit var presenter: WalletFragmentContract.Presenter
     private val listOfCards = mutableListOf<WalletModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,14 +45,14 @@ class WalletsFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addCard.setOnClickListener { presenter.onOpenAddWalletClick() }
-        menu_addtransaction.setOnClickListener { presenter.onAddTransactionClick() }
+        menu_addtransaction.setOnClickListener { presenter.onAddOperationClick() }
     }
 
     override fun showAddWalletDialog() {
         AddCardDialog.newInstance().show(childFragmentManager, null)
     }
 
-    override fun showTransactionDialog() {
+    override fun showOperationDialog() {
         AddOperationDialog.newInstance().show(childFragmentManager, null)
     }
 

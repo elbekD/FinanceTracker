@@ -39,8 +39,9 @@ abstract class AppDatabase : RoomDatabase() {
                             super.onCreate(db)
                             Executors.newSingleThreadExecutor().execute {
                                 with(get(ctx, name)) {
-                                    currencyDao().insertAll(Currency("RUB", true),
+                                    val list = listOf(Currency("RUB", true),
                                             Currency("USD", true))
+                                    currencyDao().insertAll(list)
                                     categoryDao().insertAll(Category("Food"), Category("House"))
                                 }
                             }
@@ -50,7 +51,7 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     abstract fun cardDao(): WalletDao
-    abstract fun transactionDao(): OperationDao
+    abstract fun operationDao(): OperationDao
     abstract fun categoryDao(): CategoryDao
     abstract fun currencyDao(): CurrencyDao
     abstract fun exchangeRateDao(): ExchangeRateDao

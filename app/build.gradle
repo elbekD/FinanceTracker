@@ -54,9 +54,19 @@ dependencies {
 
     testImplementation deps.junit
     testImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.core
+    testImplementation deps.mockito.android
+    androidTestImplementation deps.mockito.android
 
     androidTestImplementation deps.support.appcompat
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.design
+
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation deps.espresso.intents
 }

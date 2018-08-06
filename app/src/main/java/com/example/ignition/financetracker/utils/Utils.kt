@@ -9,16 +9,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Utils {
-    val dateFormatter = SimpleDateFormat.getDateInstance(DateFormat.DEFAULT, Locale.getDefault())
-
     private val decimalFormatter = DecimalFormat("0.00")
 
     fun formatDecimalNumber(value: BigDecimal): String {
         return decimalFormatter.format(value)
-    }
-
-    fun formatDecimalNumber(value: Double): String {
-        return formatDecimalNumber(BigDecimal.valueOf(value))
     }
 
     fun makeNegativeDecimal(d: String, isNegative: Boolean): BigDecimal {
@@ -29,11 +23,5 @@ object Utils {
     fun <T> createAdapterWith(ctx: Context?,
                               resource: Int = android.R.layout.simple_spinner_dropdown_item): ArrayAdapter<T> {
         return ArrayAdapter(ctx, resource)
-    }
-
-    fun <T> createAdapterWithValues(ctx: Context?,
-                                    values: Array<T>,
-                                    resource: Int = android.R.layout.simple_spinner_dropdown_item): ArrayAdapter<T> {
-        return ArrayAdapter(ctx, resource, values)
     }
 }

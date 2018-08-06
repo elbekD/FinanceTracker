@@ -7,21 +7,21 @@ import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.ui.main.WalletModel
 import com.example.ignition.financetracker.ui.main.WalletOperationModel
 
-interface CardFragmentContract {
+interface WalletFragmentContract {
     interface View : MvpView {
         fun setCardAdapter(wallets: List<WalletModel>)
         fun addWalletToPager(c: Wallet)
         fun showAddWalletDialog()
-        fun showTransactionDialog()
+        fun showOperationDialog()
         fun updateWalletModel(wOp: WalletOperationModel)
         fun showError(msg: String)
     }
 
-    interface Presenter : MvpPresenter<CardFragmentContract.View> {
+    interface Presenter : MvpPresenter<WalletFragmentContract.View> {
         fun load()
         fun addWallet(w: Wallet)
         fun commitOperation(rom: RepeatableOperationModel)
         fun onOpenAddWalletClick()
-        fun onAddTransactionClick()
+        fun onAddOperationClick()
     }
 }

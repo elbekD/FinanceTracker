@@ -10,7 +10,7 @@ import com.example.ignition.financetracker.utils.SchedulersProvider
 object WalletFragmentModule {
     fun provideCardFragmentPresenter(dataSource: DataSource = AppModule.provideDataSource(),
                                      sp: SchedulersProvider = AppModule.provideSchedulerProvider()):
-            CardFragmentContract.Presenter {
+            WalletFragmentContract.Presenter {
         return WalletFragmentPresenter.get(dataSource, sp)
     }
 }

@@ -8,13 +8,13 @@ class AddOperationDialogContract {
         fun changeMainCurrency(currency: String)
         fun setupCurrencyAdapter(currencies: List<String>)
         fun setupCategoryAdapter(categories: List<String>)
-        fun setupCardsAdapter(cards: List<String>)
+        fun setupWalletAdapter(cards: List<String>)
         fun showPeriodPicker(show: Boolean)
     }
 
     interface Presenter : MvpPresenter<AddOperationDialogContract.View> {
         fun load()
-        fun onCardSelected(cardName: String)
+        fun onWalletSelected(walletName: String)
         fun periodClick(show: Boolean)
     }
 }
