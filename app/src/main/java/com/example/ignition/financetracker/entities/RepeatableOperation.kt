@@ -12,7 +12,7 @@ import android.arch.persistence.room.PrimaryKey
                 parentColumns = ["id"],
                 childColumns = ["operationId"],
                 onDelete = ForeignKey.CASCADE)])
-data class RepeatableOperation(val operationId: Long,
-                               val periodDate: Int,
-                               @PrimaryKey(autoGenerate = true)
-                               val id: Long = 0)
+data class RepeatableOperation(
+        @PrimaryKey(autoGenerate = true)
+        val id: Long = 0, val operationId: Long,
+        val periodDate: Int)

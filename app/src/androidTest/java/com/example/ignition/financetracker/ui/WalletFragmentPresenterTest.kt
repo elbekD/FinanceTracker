@@ -30,7 +30,7 @@ class WalletFragmentPresenterTest {
 
     @Test
     fun showAddNewWalletDialog() {
-        presenter.onOpenAddWalletClick()
+        presenter.onAddWalletClick()
         verify(view).showAddWalletDialog()
     }
 

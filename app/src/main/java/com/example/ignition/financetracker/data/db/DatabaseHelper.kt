@@ -23,13 +23,21 @@ class DatabaseHelper private constructor(private val db: AppDatabase) : Database
         }
     }
 
-    override fun getWallets() = db.cardDao().allWallet()
+    override fun getWallets() = db.cardDao().getWallets()
     override fun getWalletByName(name: String) = db.cardDao().walletByName(name)
 
     override fun insertOperation(t: Operation) = db.operationDao().insertOperation(t)
     override fun getOperationById(operationId: Long) = db.operationDao().getOperationById(operationId)
     override fun getWalletOperations(name: String) = db.operationDao().walletOperations(name)
-    override fun getOperations() = db.operationDao().allOperations()
+    override fun getOperations() = db.operationDao().getOperations()
+
+    override fun removeOperation(o: Operation): Single<Boolean> {
+        return Single.fromCallable {
+            db.operationDao().removeOperation(o)
+            true
+        }
+    }
+
     override fun getAllCategories() = db.categoryDao().getAllCategories()
 
     override fun insertRate(r: ExchangeRate) = db.exchangeRateDao().insert(r)

@@ -39,10 +39,13 @@ abstract class AppDatabase : RoomDatabase() {
                             super.onCreate(db)
                             Executors.newSingleThreadExecutor().execute {
                                 with(get(ctx, name)) {
-                                    val list = listOf(Currency("RUB", true),
-                                            Currency("USD", true))
-                                    currencyDao().insertAll(list)
-                                    categoryDao().insertAll(Category("Food"), Category("House"))
+                                    val listOfCurrencies = listOf(Currency(0, "RUB", true),
+                                            Currency(0, "USD", true))
+                                    val listOfCategories = listOf(Category(0, "Food"),
+                                            Category(0, "House"))
+
+                                    currencyDao().insertAll(listOfCurrencies)
+                                    categoryDao().insertAll(listOfCategories)
                                 }
                             }
                         }

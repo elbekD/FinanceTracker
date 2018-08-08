@@ -15,7 +15,7 @@ class RepeatableOperationDaoTest :DbTest(){
     fun insertAndRead() {
         val op = TestUtils.createOperation()
         val id = db.operationDao().insertOperation(op)
-        val ro = RepeatableOperation(id, 607)
+        val ro = RepeatableOperation(0, id, 607)
         db.repeatableOperationDao().insert(ro)
         val res = db.repeatableOperationDao().getAllRepeatableOperations().test()
         res.assertValue { it.size == 1 }

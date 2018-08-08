@@ -1,12 +1,10 @@
 package com.example.ignition.financetracker.ui.main
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.ui.main.walletFragment.WalletsFragment
-import com.example.ignition.financetracker.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -15,24 +13,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 class BillScreen : AppCompatActivity(), BillScreenContract.View {
     private lateinit var presenter: BillScreenContract.Presenter
 
-    private val FRAGMENT_STATISTIC_TAG = "statistic_fragment_tag"
-    private val HISTORY_LIST_TAG = "history_list_tag"
-    private val FRAGMENT_CARDS_TAG = "fragment_cards_tag"
-    private val OPERATIONS_DIALOG_FRAGMENT_TAG = "opertion_dialog_tag"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         presenter = BillScreenModule.provideBillScreenPresenter()
         presenter.attachView(this)
-        presenter.load()
         initViews()
 
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_holder, WalletsFragment.newInstance(), null)
+                    .replace(R.id.fragment_holder, WalletsFragment.newInstance(), null)
                     .commit()
+
+        presenter.load()
     }
 
     override fun onDestroy() {
@@ -41,11 +35,26 @@ class BillScreen : AppCompatActivity(), BillScreenContract.View {
         super.onDestroy()
     }
 
+    override fun showBalance() {
+
+    }
+
     override fun showSettings() {
-        startActivity(Intent(this, SettingsActivity::class.java))
+
+    }
+
+    override fun showAbout() {
+
     }
 
     private fun initViews() {
-        menu_settings.setOnClickListener { presenter.onSettingsClick() }
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_balance -> presenter.onBalanceClick()
+                R.id.menu_settings -> presenter.onSettingsClick()
+                R.id.menu_about -> presenter.onAboutClick()
+            }
+            true
+        }
     }
 }

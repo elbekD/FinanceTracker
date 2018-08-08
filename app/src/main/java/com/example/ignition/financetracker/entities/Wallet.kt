@@ -5,9 +5,9 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "wallet")
 data class Wallet(
+        @PrimaryKey(autoGenerate = true)
+        val id: Long = 0,
         val name: String,
         val mainCurrency: String,
         val secondaryCurrency: String,
-        val type: String,
-        @PrimaryKey(autoGenerate = true)
-        val id: Long = 0)
+        val type: String)

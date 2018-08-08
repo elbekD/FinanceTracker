@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.example.ignition.financetracker.entities.Currency
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 /**
  * Created by Elbek D. on 03.08.2018.
@@ -13,7 +13,7 @@ import io.reactivex.Single
 @Dao
 interface CurrencyDao {
     @Query("select * from currency")
-    fun getUserCurrencies(): Single<List<Currency>>
+    fun getUserCurrencies(): Flowable<List<Currency>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(c: List<Currency>)

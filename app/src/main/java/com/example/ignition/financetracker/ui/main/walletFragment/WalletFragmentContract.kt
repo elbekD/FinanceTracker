@@ -1,5 +1,6 @@
 package com.example.ignition.financetracker.ui.main.walletFragment
 
+import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.MvpPresenter
 import com.example.ignition.financetracker.ui.base.MvpView
@@ -13,15 +14,21 @@ interface WalletFragmentContract {
         fun addWalletToPager(c: Wallet)
         fun showAddWalletDialog()
         fun showOperationDialog()
+        fun showEditOperationDialog(o: Operation)
         fun updateWalletModel(wOp: WalletOperationModel)
         fun showError(msg: String)
+        fun closeMenu()
+        fun updateOperationsList(ops: List<Operation>)
     }
 
     interface Presenter : MvpPresenter<WalletFragmentContract.View> {
         fun load()
         fun addWallet(w: Wallet)
         fun commitOperation(rom: RepeatableOperationModel)
-        fun onOpenAddWalletClick()
+        fun onAddWalletClick()
         fun onAddOperationClick()
+        fun removeOperation(o: Operation)
+        fun onEditOperation(o: Operation)
+        fun onWalletSelected(walletName: String)
     }
 }

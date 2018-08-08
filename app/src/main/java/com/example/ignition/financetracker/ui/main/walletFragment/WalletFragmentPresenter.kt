@@ -2,6 +2,7 @@ package com.example.ignition.financetracker.ui.main.walletFragment
 
 import com.example.ignition.financetracker.data.DataSource
 import com.example.ignition.financetracker.entities.ExchangeRate
+import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.BasePresenter
@@ -36,6 +37,7 @@ private constructor(dataSource: DataSource,
                         val rate = dataSource.getRate(wallet.mainCurrency, wallet.secondaryCurrency)
                                 .onErrorResumeNext { Single.just(ExchangeRate.default(fromToRate)) }
                                 .blockingGet()
+
                         dataSource.getWalletOperations(wallet.name)
                                 .subscribe { ops ->
                                     val income = ops.asSequence()
@@ -48,6 +50,7 @@ private constructor(dataSource: DataSource,
                                             .toBigDecimal().negate()
                                     val balance = income - outcome
                                     val secondaryBalance = balance * rate.rate
+
                                     res.add(WalletModel(wallet, balance, secondaryBalance, income, outcome))
                                 }
                     }
@@ -58,12 +61,18 @@ private constructor(dataSource: DataSource,
                 .subscribe { cards -> view?.setCardAdapter(cards) })
     }
 
-    override fun onOpenAddWalletClick() {
-        view?.showAddWalletDialog()
+    override fun onAddWalletClick() {
+        view?.let {
+            it.showAddWalletDialog()
+            it.closeMenu()
+        }
     }
 
     override fun onAddOperationClick() {
-        view?.showOperationDialog()
+        view?.let {
+            it.showOperationDialog()
+            it.closeMenu()
+        }
     }
 
     override fun addWallet(w: Wallet) {
@@ -85,7 +94,7 @@ private constructor(dataSource: DataSource,
                     val resultingOperation = rom.operation.copy(rate = rates.first.rate)
                     val operationId = dataSource.insertOperation(resultingOperation)
                     if (rom.repeatDate > 0) {
-                        dataSource.insertRepeatableOperation(RepeatableOperation(operationId, rom.repeatDate))
+                        dataSource.insertRepeatableOperation(RepeatableOperation(0, operationId, rom.repeatDate))
                     }
                     WalletOperationModel(resultingOperation, rates.second.rate)
                 }
@@ -96,5 +105,24 @@ private constructor(dataSource: DataSource,
                 }, { err ->
                     view?.showError(err.message ?: "Unknown error")
                 }))
+    }
+
+    override fun onWalletSelected(walletName: String) {
+        compositeDisposable.add(dataSource.getWalletOperations(walletName)
+                .subscribeOn(sp.io())
+                .observeOn(sp.ui())
+                .subscribe { ops -> view?.updateOperationsList(ops) })
+    }
+
+    override fun onEditOperation(o: Operation) {
+        view?.showEditOperationDialog(o)
+    }
+
+    override fun removeOperation(o: Operation) {
+        dataSource.removeOperation(o)
+                .flatMap { dataSource.getWalletOperations(o.walletName) }
+                .subscribeOn(sp.io())
+                .observeOn(sp.ui())
+                .subscribe { ops -> view?.updateOperationsList(ops) }
     }
 }

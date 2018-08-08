@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorBlack">#000</color>
-    <color name="colorWhite">#fff</color>
-    <color name="colorSilver">#C0C0C0</color>
-    <color name="backgroundMainColor">#40414D</color>
-    <color name="cvBackgroundColor">#474957</color>
-    <color name="textCVColor">#7B7E8E</color>
-    <color name="green">#9CCB70</color>
-    <color name="outcomeColor">#C5A69B</color>
+    <color name="colorPrimary">#ffcc00</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ff0000</color>
+
+    <color name="iconLightGrey">#e6e6e6</color>
+    <color name="iconBlue">#4981d7</color>
+    <color name="extraGrey">#808285</color>
 </resources>

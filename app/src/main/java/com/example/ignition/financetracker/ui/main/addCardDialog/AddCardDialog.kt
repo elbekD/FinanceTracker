@@ -68,6 +68,6 @@ class AddCardDialog : DialogFragment(), AddCardDialogContract.View {
         val mainCurrency = findViewById<Spinner>(R.id.spinner_newWalletMainCurrency).selectedItem.toString()
         val secondaryCurrency = findViewById<Spinner>(R.id.spinner_newWalletSecondaryCurrency).selectedItem.toString()
         val type = findViewById<EditText>(R.id.input_walletType).text.toString()
-        Wallet(cardName, mainCurrency, secondaryCurrency, type)
+        Wallet(0,cardName, mainCurrency, secondaryCurrency, type)
     }
 }

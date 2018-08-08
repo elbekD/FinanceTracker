@@ -7,6 +7,6 @@ import android.arch.persistence.room.PrimaryKey
  * Created by Elbek D. on 03.08.2018.
  */
 @Entity(tableName = "category")
-data class Category(val name: String,
-                    @PrimaryKey(autoGenerate = true)
-                    val id: Long = 0)
+data class Category(@PrimaryKey(autoGenerate = true)
+                    val id: Long = 0,
+                    val name: String)

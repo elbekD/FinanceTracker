@@ -8,20 +8,18 @@ import android.view.ViewGroup
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.ui.main.WalletModel
 import com.example.ignition.financetracker.utils.Utils
-import kotlinx.android.synthetic.main.card_container.view.*
+import kotlinx.android.synthetic.main.framelayout_walletcontainer.view.*
 
 class CardsPageAdapter(private val ctx: Context?, private val wallets: List<WalletModel>) : PagerAdapter() {
 
     override fun getCount(): Int = wallets.size
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view === `object` as View
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
-    }
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container.removeView(`object` as View)
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val walletModel = wallets[position]
         val inflater = LayoutInflater.from(ctx)
-        val v = inflater.inflate(R.layout.card_container, container, false)
+        val v = inflater.inflate(R.layout.framelayout_walletcontainer, container, false)
         v.tag = walletModel.w.name
 
         with(v) {

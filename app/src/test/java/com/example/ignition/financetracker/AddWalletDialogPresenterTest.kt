@@ -1,12 +1,11 @@
-package com.example.ignition.financetracker.ui
+package com.example.ignition.financetracker
 
-import android.support.test.runner.AndroidJUnit4
+
 import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardDialogContract
 import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardModule
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
@@ -14,7 +13,6 @@ import org.mockito.MockitoAnnotations
 /**
  * Created by Elbek D. on 06.08.2018.
  */
-@RunWith(AndroidJUnit4::class)
 class AddWalletDialogPresenterTest {
     @Mock
     lateinit var view: AddCardDialogContract.View

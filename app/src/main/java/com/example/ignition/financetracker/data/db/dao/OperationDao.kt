@@ -1,10 +1,8 @@
 package com.example.ignition.financetracker.data.db.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.example.ignition.financetracker.entities.Operation
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -22,5 +20,8 @@ interface OperationDao {
     fun walletOperations(name: String): Single<List<Operation>>
 
     @Query("select * from operation")
-    fun allOperations(): Single<List<Operation>>
+    fun getOperations(): Flowable<List<Operation>>
+
+    @Delete
+    fun removeOperation(operation: Operation)
 }

@@ -11,6 +11,14 @@ class BillScreenPresenter private constructor(
         sp: SchedulersProvider
 ) : BasePresenter<BillScreenContract.View>(dataSource, sp), BillScreenContract.Presenter {
 
+    override fun onBalanceClick() {
+
+    }
+
+    override fun onAboutClick() {
+
+    }
+
     companion object {
         private var INSTANCE: BillScreenContract.Presenter? = null
         fun get(dataSource: DataSource, sp: SchedulersProvider): BillScreenContract.Presenter {

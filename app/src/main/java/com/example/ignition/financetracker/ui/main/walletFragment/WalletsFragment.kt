@@ -2,20 +2,25 @@ package com.example.ignition.financetracker.ui.main.walletFragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.CardsPageAdapter
+import com.example.ignition.financetracker.adapters.OperationAdapter
 import com.example.ignition.financetracker.adapters.createWalletModelFrom
+import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.ui.main.WalletModel
 import com.example.ignition.financetracker.ui.main.WalletOperationModel
 import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardDialog
 import com.example.ignition.financetracker.ui.main.addOperationDialog.AddOperationDialog
-import kotlinx.android.synthetic.main.cards_fragment.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import java.math.BigDecimal
 
 class WalletsFragment : Fragment(),
@@ -29,23 +34,41 @@ class WalletsFragment : Fragment(),
     }
 
     private lateinit var presenter: WalletFragmentContract.Presenter
+    private lateinit var operationAdapter: OperationAdapter
+    private lateinit var walletPageChangeListener: ViewPager.OnPageChangeListener
     private val listOfCards = mutableListOf<WalletModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.cards_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = WalletFragmentModule.provideCardFragmentPresenter()
         presenter.attachView(this)
+        operationAdapter = OperationAdapter(presenter)
+
+        walletPageChangeListener = object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                presenter.onWalletSelected(listOfCards[position].w.name)
+            }
+        }
+
         presenter.load()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addCard.setOnClickListener { presenter.onOpenAddWalletClick() }
-        menu_addtransaction.setOnClickListener { presenter.onAddOperationClick() }
+        menu_addWallet.setOnClickListener { presenter.onAddWalletClick() }
+        menu_addOperation.setOnClickListener { presenter.onAddOperationClick() }
+        recyclerview_operations.layoutManager = LinearLayoutManager(context)
+        recyclerview_operations.adapter = operationAdapter
     }
 
     override fun showAddWalletDialog() {
@@ -56,8 +79,17 @@ class WalletsFragment : Fragment(),
         AddOperationDialog.newInstance().show(childFragmentManager, null)
     }
 
+    override fun showEditOperationDialog(o: Operation) {
+        AddOperationDialog.newInstance(o).show(childFragmentManager, null)
+    }
+
+    override fun closeMenu() {
+        fab_menu.close(false)
+    }
+
     override fun onDestroy() {
         presenter.detachView()
+        cardsPager?.removeOnPageChangeListener(walletPageChangeListener)
         if (isRemoving) presenter.destroy()
         super.onDestroy()
     }
@@ -65,6 +97,7 @@ class WalletsFragment : Fragment(),
     override fun setCardAdapter(wallets: List<WalletModel>) {
         listOfCards.addAll(wallets)
         val adapter = CardsPageAdapter(context, listOfCards)
+        cardsPager.addOnPageChangeListener(walletPageChangeListener)
         cardsPager.adapter = adapter
     }
 
@@ -108,5 +141,10 @@ class WalletsFragment : Fragment(),
                 cardsPager.adapter?.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun updateOperationsList(ops: List<Operation>) {
+        Log.d("SAAS", ops.toString())
+        operationAdapter.updateOperations(ops)
     }
 }

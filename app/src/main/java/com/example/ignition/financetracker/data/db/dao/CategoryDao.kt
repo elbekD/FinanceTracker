@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.example.ignition.financetracker.entities.Category
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 /**
  * Created by Elbek D. on 03.08.2018.
@@ -13,8 +13,8 @@ import io.reactivex.Single
 @Dao
 interface CategoryDao {
     @Query("select * from category")
-    fun getAllCategories(): Single<List<Category>>
+    fun getAllCategories(): Flowable<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg c: Category)
+    fun insertAll(c: List<Category>)
 }

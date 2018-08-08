@@ -8,13 +8,14 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.format.DateUtils
 import android.view.View
 import android.widget.*
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.utils.Utils
+import kotlinx.android.synthetic.main.dialog_addoperation.view.*
+import java.math.BigDecimal
 import java.util.*
 
 class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
@@ -26,9 +27,12 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
         private val amountRegex = """^\d+(\.\d*)?$""".toRegex()
         val TAG = AddOperationDialog::class.java.simpleName
         fun newInstance() = AddOperationDialog()
+        fun newInstance(operationToEdit: Operation) = AddOperationDialog()
+                .apply { editOperation = operationToEdit }
     }
 
     private var listener: AddOperationListener? = null
+    private var editOperation: Operation? = null
     private lateinit var presenter: AddOperationDialogContract.Presenter
     private lateinit var v: View
     private lateinit var dialogView: AlertDialog
@@ -36,15 +40,14 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
     private val calendar = Calendar.getInstance()
 
     private val datePickerListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-        v.findViewById<TextView>(R.id.tv_transactionDate).text = DateUtils
-                .formatDateTime(activity, calendar.apply {
-                    set(year, month, dayOfMonth)
-                }.timeInMillis, DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_DATE)
+        v.findViewById<TextView>(R.id.tv_transactionDate).text = Utils.formatDate(
+                activity?.applicationContext,
+                calendar.apply { set(year, month, dayOfMonth) }.timeInMillis)
     }
 
     private lateinit var datePickerDialog: DatePickerDialog
 
-    private lateinit var cardAdapter: ArrayAdapter<String>
+    private lateinit var walletAdapter: ArrayAdapter<String>
     private lateinit var categoryAdapter: ArrayAdapter<String>
     private lateinit var currencyAdapter: ArrayAdapter<String>
 
@@ -62,7 +65,10 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
                 .setPositiveButton(android.R.string.ok) { _, _ -> listener?.onAddOperationClick(gatherOperation()) }
                 .setNegativeButton(android.R.string.cancel) { _, _ -> dismiss() }
                 .create().apply {
-                    setOnShowListener { addAmountTextListener(v) }
+                    setOnShowListener {
+                        addAmountTextListener(v)
+                        setupEditOperation()
+                    }
                     setCanceledOnTouchOutside(false)
                 }
 
@@ -97,7 +103,35 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
 
     override fun setupCategoryAdapter(categories: List<String>) = categoryAdapter.addAll(categories)
 
-    override fun setupWalletAdapter(cards: List<String>) = cardAdapter.addAll(cards)
+    override fun setupWalletAdapter(cards: List<String>) = walletAdapter.addAll(cards)
+
+    private fun setupEditOperation() {
+        editOperation?.let {
+            changeWallet(it.walletName)
+            changeCategory(it.operationType)
+            changeMainCurrency(it.currency)
+            v.input_amount.text.insert(0, it.sum.toString())
+            v.tv_transactionDate.text = Utils.formatDate(activity, it.date)
+            val typeId = if (it.sum > BigDecimal.ZERO) R.id.income else R.id.expense
+            v.operation_type.check(typeId)
+        }
+    }
+
+    private fun changeCategory(category: String) {
+        with(categoryAdapter) {
+            remove(category)
+            insert(category, 0)
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun changeWallet(wallet: String) {
+        with(walletAdapter) {
+            remove(wallet)
+            insert(wallet, 0)
+            notifyDataSetChanged()
+        }
+    }
 
     override fun showPeriodPicker(show: Boolean) {
         with(v.findViewById<LinearLayout>(R.id.group_operationPeriod)) {
@@ -106,14 +140,12 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
     }
 
     private fun initViews() {
-        cardAdapter = Utils.createAdapterWith(activity)
+        walletAdapter = Utils.createAdapterWith(activity)
         categoryAdapter = Utils.createAdapterWith(activity)
         currencyAdapter = Utils.createAdapterWith(activity)
         periodSwitcher = v.findViewById(R.id.switch_transactionPeriodDate)
 
-        v.findViewById<TextView>(R.id.tv_transactionDate)
-                .text = DateUtils.formatDateTime(activity,
-                calendar.timeInMillis, DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_DATE)
+        v.findViewById<TextView>(R.id.tv_transactionDate).text = Utils.formatDate(activity?.applicationContext, calendar.timeInMillis)
 
         datePickerDialog = DatePickerDialog(
                 activity,
@@ -133,7 +165,7 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
                         presenter.onWalletSelected(selectedItem.toString())
                     }
                 }
-                adapter = cardAdapter
+                adapter = walletAdapter
             }
             findViewById<Spinner>(R.id.spinner_category).adapter = categoryAdapter
             findViewById<Spinner>(R.id.spinner_operationcurrency).adapter = currencyAdapter
@@ -177,6 +209,7 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
         } else 0
 
         RepeatableOperationModel(Operation(
+                if (editOperation != null) editOperation!!.id else 0,
                 wallet, category,
                 Utils.makeNegativeDecimal(amount, isOutcome),
                 currency, dateInMillis),

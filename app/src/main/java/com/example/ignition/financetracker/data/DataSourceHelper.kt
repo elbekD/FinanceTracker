@@ -64,4 +64,6 @@ class DataSourceHelper(private val db: Database,
         val nextPeriod = ro.periodDate / 100 + (ro.periodDate % 100 + 1) % 12
         db.insertRepeatableOperation(ro.copy(periodDate = nextPeriod))
     }
+
+    override fun removeOperation(o: Operation) = db.removeOperation(o)
 }
