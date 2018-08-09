@@ -201,7 +201,9 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
         val category = findViewById<Spinner>(R.id.spinner_category).selectedItem.toString()
         val wallet = findViewById<Spinner>(R.id.spinner_wallet).selectedItem.toString()
         val isOutcome = findViewById<RadioGroup>(R.id.operation_type).checkedRadioButtonId == R.id.expense
-        val dateInMillis = calendar.timeInMillis
+        val dateInMillis = calendar
+                .apply { clear(Calendar.HOUR); clear(Calendar.MINUTE); clear(Calendar.SECOND) }
+                .timeInMillis
         val repeatDayOfMonth = if (periodSwitcher.isChecked) {
             val month = (Calendar.getInstance()[Calendar.MONTH] + 1) % 12
             val day = findViewById<EditText>(R.id.input_operationPeriod).text.toString().toInt()
@@ -209,7 +211,7 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
         } else 0
 
         RepeatableOperationModel(Operation(
-                if (editOperation != null) editOperation!!.id else 0,
+                editOperation?.id ?: 0,
                 wallet, category,
                 Utils.makeNegativeDecimal(amount, isOutcome),
                 currency, dateInMillis),

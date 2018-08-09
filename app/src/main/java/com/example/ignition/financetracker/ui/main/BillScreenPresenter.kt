@@ -1,6 +1,5 @@
 package com.example.ignition.financetracker.ui.main
 
-import android.util.Log
 import com.example.ignition.financetracker.data.DataSource
 import com.example.ignition.financetracker.ui.base.BasePresenter
 import com.example.ignition.financetracker.utils.SchedulersProvider
@@ -10,14 +9,6 @@ class BillScreenPresenter private constructor(
         dataSource: DataSource,
         sp: SchedulersProvider
 ) : BasePresenter<BillScreenContract.View>(dataSource, sp), BillScreenContract.Presenter {
-
-    override fun onBalanceClick() {
-
-    }
-
-    override fun onAboutClick() {
-
-    }
 
     companion object {
         private var INSTANCE: BillScreenContract.Presenter? = null
@@ -31,6 +22,14 @@ class BillScreenPresenter private constructor(
         view?.showSettings()
     }
 
+    override fun onBalanceClick() {
+        view?.showBalance()
+    }
+
+    override fun onAboutClick() {
+        view?.showAbout()
+    }
+
     override fun load() {
         val c = Calendar.getInstance()
         val date = c[Calendar.DAY_OF_MONTH] * 100 + c[Calendar.MONTH]
@@ -38,7 +37,6 @@ class BillScreenPresenter private constructor(
         compositeDisposable.add(dataSource.getRepeatableOperationsByDate(date)
                 .subscribeOn(sp.io())
                 .subscribe { ops ->
-                    Log.d("AZA", ops.toString())
                     ops.forEach {
                         dataSource.repeatOperation(it)
                     }

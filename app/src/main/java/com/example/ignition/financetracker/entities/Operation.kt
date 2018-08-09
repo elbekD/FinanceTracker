@@ -13,3 +13,11 @@ data class Operation(@PrimaryKey(autoGenerate = true)
                      val currency: String,
                      val date: Long,
                      val rate: BigDecimal = BigDecimal.ONE)
+
+data class OperationFilter(val from: Long,
+                           val to: Long,
+                           val income: Boolean,
+                           val expense: Boolean,
+                           val all: Boolean,
+                           val category: String,
+                           val anyCategory: Boolean)

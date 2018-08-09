@@ -9,5 +9,5 @@ import java.math.BigDecimal
  */
 fun createWalletModelFrom(w: Wallet) = with(w) {
     val initialBalance = BigDecimal.ZERO
-    WalletModel(w, initialBalance, initialBalance, initialBalance, initialBalance)
+    WalletModel(w.name, initialBalance, initialBalance, initialBalance, emptyList())
 }

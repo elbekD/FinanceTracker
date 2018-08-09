@@ -1,18 +1,15 @@
 package com.example.ignition.financetracker.ui.main.walletFragment
 
+import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.data.DataSource
 import com.example.ignition.financetracker.entities.ExchangeRate
-import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.BasePresenter
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
-import com.example.ignition.financetracker.ui.main.WalletModel
-import com.example.ignition.financetracker.ui.main.WalletOperationModel
 import com.example.ignition.financetracker.utils.SchedulersProvider
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import java.math.BigDecimal
 
 class WalletFragmentPresenter
 private constructor(dataSource: DataSource,
@@ -29,57 +26,33 @@ private constructor(dataSource: DataSource,
     }
 
     override fun load() {
-        compositeDisposable.add(dataSource.getWallets()
-                .map { wallets ->
-                    val res = mutableListOf<WalletModel>()
-                    wallets.forEach { wallet ->
-                        val fromToRate = "${wallet.mainCurrency}_${wallet.secondaryCurrency}"
-                        val rate = dataSource.getRate(wallet.mainCurrency, wallet.secondaryCurrency)
-                                .onErrorResumeNext { Single.just(ExchangeRate.default(fromToRate)) }
-                                .blockingGet()
-
-                        dataSource.getWalletOperations(wallet.name)
-                                .subscribe { ops ->
-                                    val income = ops.asSequence()
-                                            .filter { it.sum > BigDecimal.ZERO }
-                                            .sumByDouble { (it.sum * it.rate).toDouble() }
-                                            .toBigDecimal()
-                                    val outcome = ops.asSequence()
-                                            .filter { it.sum < BigDecimal.ZERO }
-                                            .sumByDouble { (it.sum * it.rate).toDouble() }
-                                            .toBigDecimal().negate()
-                                    val balance = income - outcome
-                                    val secondaryBalance = balance * rate.rate
-
-                                    res.add(WalletModel(wallet, balance, secondaryBalance, income, outcome))
-                                }
-                    }
-                    res
-                }
+        compositeDisposable.add(dataSource.getWalletsOperations()
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())
-                .subscribe { cards -> view?.setCardAdapter(cards) })
+                .subscribe { wallets -> view?.loadWallets(wallets) })
     }
 
     override fun onAddWalletClick() {
-        view?.let {
-            it.showAddWalletDialog()
-            it.closeMenu()
-        }
+        view?.showAddWalletDialog()
     }
 
     override fun onAddOperationClick() {
-        view?.let {
-            it.showOperationDialog()
-            it.closeMenu()
-        }
+        dataSource.hasWallets()
+                .subscribeOn(sp.io())
+                .observeOn(sp.ui())
+                .subscribe { show ->
+                    if (show) {
+                        view?.showOperationDialog()
+                    } else {
+                        view?.showError(R.string.operation_noWallets)
+                    }
+                }
     }
 
     override fun addWallet(w: Wallet) {
         compositeDisposable.add(dataSource.insertWallet(w)
                 .subscribeOn(sp.io())
-                .observeOn(sp.ui())
-                .subscribe { _ -> view?.addWalletToPager(w) })
+                .subscribe())
     }
 
     override fun commitOperation(rom: RepeatableOperationModel) {
@@ -94,35 +67,34 @@ private constructor(dataSource: DataSource,
                     val resultingOperation = rom.operation.copy(rate = rates.first.rate)
                     val operationId = dataSource.insertOperation(resultingOperation)
                     if (rom.repeatDate > 0) {
-                        dataSource.insertRepeatableOperation(RepeatableOperation(0, operationId, rom.repeatDate))
+                        dataSource.insertRepeatableOperation(
+                                RepeatableOperation(0,
+                                        rom.operation.walletName,
+                                        operationId,
+                                        rom.repeatDate))
                     }
-                    WalletOperationModel(resultingOperation, rates.second.rate)
                 }
                 .subscribeOn(sp.io())
-                .observeOn(sp.ui())
-                .subscribe({ walletOperation ->
-                    view?.updateWalletModel(walletOperation)
-                }, { err ->
-                    view?.showError(err.message ?: "Unknown error")
-                }))
+                .subscribe())
     }
 
-    override fun onWalletSelected(walletName: String) {
-        compositeDisposable.add(dataSource.getWalletOperations(walletName)
+    override fun onWalletHistoryClick(walletName: String) {
+        compositeDisposable.add(dataSource.hasOperations(walletName)
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())
-                .subscribe { ops -> view?.updateOperationsList(ops) })
+                .subscribe { res ->
+                    if (res) view?.openHistoryFragment(walletName)
+                    else view?.showError(R.string.operation_noOperations)
+                })
     }
 
-    override fun onEditOperation(o: Operation) {
-        view?.showEditOperationDialog(o)
-    }
-
-    override fun removeOperation(o: Operation) {
-        dataSource.removeOperation(o)
-                .flatMap { dataSource.getWalletOperations(o.walletName) }
+    override fun onWalletPeriodicClick(walletName: String) {
+        compositeDisposable.add(dataSource.hasPeriodicOperations(walletName)
                 .subscribeOn(sp.io())
                 .observeOn(sp.ui())
-                .subscribe { ops -> view?.updateOperationsList(ops) }
+                .subscribe { res ->
+                    if (res) view?.openPeriodicFragment(walletName)
+                    else view?.showError(R.string.operation_noRepeatableOperations)
+                })
     }
 }

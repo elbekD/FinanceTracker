@@ -1,9 +1,8 @@
 package com.example.ignition.financetracker.data.db.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import com.example.ignition.financetracker.entities.Operation
+import com.example.ignition.financetracker.entities.PeriodicOperation
 import com.example.ignition.financetracker.entities.RepeatableOperation
 import io.reactivex.Single
 
@@ -15,12 +14,17 @@ interface RepeatableOperationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(ro: RepeatableOperation)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(ros: List<RepeatableOperation>)
+    @Query("select count(*) from repeatable_operation where walletName = :wName")
+    fun walletRepeatableOperationCount(wName: String): Single<Int>
 
-    @Query("select * from repeatable_operation")
-    fun getAllRepeatableOperations(): Single<List<RepeatableOperation>>
+    @Transaction
+    @Query("select * from repeatable_operation where walletName = :wName")
+    fun getWalletPeriodicOperations(wName: String): Single<PeriodicOperation>
 
+    @Delete
+    fun removePeriodicOperation(ro: RepeatableOperation)
+
+    @Transaction
     @Query("select * from repeatable_operation where periodDate = :date")
     fun getRepeatableOperationsByDate(date: Int): Single<List<RepeatableOperation>>
 }

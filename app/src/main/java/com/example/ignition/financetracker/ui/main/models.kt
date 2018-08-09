@@ -9,11 +9,11 @@ import java.math.BigDecimal
  */
 data class RepeatableOperationModel(val operation: Operation, val repeatDate: Int)
 
-data class WalletModel(val w: Wallet,
+data class WalletModel(val walletName: String,
                        val balance: BigDecimal,
-                       val secondaryBalance: BigDecimal,
                        val incomeValue: BigDecimal,
-                       val outcomeValue: BigDecimal)
+                       val outcomeValue: BigDecimal,
+                       val operations: List<Operation>)
 
 data class WalletOperationModel(val operation: Operation,
                                 val mainToSecondaryRate: BigDecimal)

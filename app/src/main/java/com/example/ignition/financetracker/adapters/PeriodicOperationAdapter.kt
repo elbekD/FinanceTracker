@@ -10,23 +10,26 @@ import android.widget.TextView
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.entities.OperationFilter
+import com.example.ignition.financetracker.entities.PeriodicOperation
 import com.example.ignition.financetracker.ui.main.walletOperations.WalletOperationContract
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.itemview_operation.view.*
 
 /**
- * Created by Elbek D. on 07.08.2018.
+ * Created by Elbek D. on 09.08.2018.
  */
-class OperationAdapter(private val presenter: WalletOperationContract.Presenter)
-    : RecyclerView.Adapter<OperationAdapter.ViewHolder>() {
+class PeriodicOperationAdapter(_items: PeriodicOperation,
+                               private val presenter: WalletOperationContract.Presenter)
+    : RecyclerView.Adapter<PeriodicOperationAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<Operation>()
-    private var originalItems: MutableList<Operation>? = null
+    private val ro = _items.rOperation!!
+    private val items = _items.operations!!.toMutableList()
+    private var originalItems: MutableList<Operation> = _items.operations!!.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
+        val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.itemview_operation, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(v)
     }
 
     override fun getItemCount() = items.size
@@ -35,20 +38,18 @@ class OperationAdapter(private val presenter: WalletOperationContract.Presenter)
         holder.bindView(items[position])
     }
 
-    fun updateOperations(newData: List<Operation>) {
-        val diff = OperationDiffUtilCallback(originalItems ?: items, newData)
-        val diffResult = DiffUtil.calculateDiff(diff)
+    fun applyFilter(filter: OperationFilter) {
+        val res = Utils.filterOperationList(originalItems, filter)
         items.clear()
-        items.addAll(newData)
-        if (originalItems == null) {
-            originalItems = newData.toMutableList()
-        }
+        items.addAll(res)
+        val diff = OperationDiffUtilCallback(originalItems, res)
+        val diffResult = DiffUtil.calculateDiff(diff)
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun applyFilter(filter: OperationFilter) {
-        val res = Utils.filterOperationList(originalItems!!, filter)
-        updateOperations(res)
+    private fun removePeriodicOperation(o: Operation) {
+        items.remove(o)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val v: View) : RecyclerView.ViewHolder(v) {
@@ -64,8 +65,12 @@ class OperationAdapter(private val presenter: WalletOperationContract.Presenter)
             amount.text = Utils.formatDecimalNumber(o.sum)
             currency.text = o.currency
             date.text = Utils.formatDate(v.context, o.date)
-            remove.setOnClickListener { presenter.removeOperation(o) }
-            edit.setOnClickListener { presenter.onEditOperation(o) }
+            remove.setOnClickListener {
+                presenter.removePeriodicOperation(ro)
+                removePeriodicOperation(o)
+            }
+            edit.visibility = View.GONE
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.ui.main.addCardDialog
+package com.example.ignition.financetracker.ui.main.addWalletDialog
 
 import com.example.ignition.financetracker.ui.base.MvpPresenter
 import com.example.ignition.financetracker.ui.base.MvpView
@@ -7,7 +7,7 @@ import com.example.ignition.financetracker.ui.base.MvpView
  * Created by Elbek D. on 03.08.2018.
  */
 
-interface AddCardDialogContract {
+interface AddWalletDialogContract {
     interface View : MvpView {
         fun setCurrencyAdapter(c: List<String>)
     }

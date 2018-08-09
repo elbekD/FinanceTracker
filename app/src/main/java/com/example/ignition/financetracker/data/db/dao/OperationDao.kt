@@ -17,11 +17,14 @@ interface OperationDao {
     fun getOperationById(operationId: Long): Operation
 
     @Query("select * from operation where walletName = :name")
-    fun walletOperations(name: String): Single<List<Operation>>
+    fun walletOperations(name: String): Flowable<List<Operation>>
 
     @Query("select * from operation")
     fun getOperations(): Flowable<List<Operation>>
 
     @Delete
     fun removeOperation(operation: Operation)
+
+    @Query("select count(*) from operation where walletName = :wName")
+    fun walletOperationCount(wName: String): Single<Int>
 }

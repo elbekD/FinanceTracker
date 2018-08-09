@@ -17,10 +17,12 @@ class DataSourceHelper(private val db: Database,
     override fun getWallets() = db.getWallets()
     override fun getWalletByName(name: String) = db.getWalletByName(name)
     override fun getWalletOperations(name: String) = db.getWalletOperations(name)
+    override fun getWalletsOperations() = db.getWalletsOperations()
 
     override fun insertOperation(t: Operation) = db.insertOperation(t)
     override fun getOperationById(operationId: Long) = db.getOperationById(operationId)
     override fun getOperations() = db.getOperations()
+    override fun walletOperationCount(wName: String) = db.walletOperationCount(wName)
 
     override fun getAllCategories() = db.getAllCategories()
 
@@ -49,8 +51,23 @@ class DataSourceHelper(private val db: Database,
     }
 
     override fun insertRepeatableOperation(ro: RepeatableOperation) = db.insertRepeatableOperation(ro)
-    override fun insertAllRepeatableOperations(ros: List<RepeatableOperation>) = db.insertAllRepeatableOperations(ros)
-    override fun getAllRepeatableOperations() = db.getAllRepeatableOperations()
+    override fun getWalletPeriodicOperations(wName: String) = db.getWalletPeriodicOperations(wName)
+    override fun removePeriodicOperation(ro: RepeatableOperation) = db.removePeriodicOperation(ro)
+    override fun walletRepeatableOperationCount(wName: String) = db.walletRepeatableOperationCount(wName)
+    override fun hasPeriodicOperations(wName: String): Single<Boolean> {
+        return db.walletRepeatableOperationCount(wName)
+                .flatMap {
+                    Single.just(it != 0)
+                }
+    }
+
+    override fun hasOperations(wName: String): Single<Boolean> {
+        return db.walletOperationCount(wName)
+                .flatMap {
+                    Single.just(it != 0)
+                }
+    }
+
     override fun getRepeatableOperationsByDate(date: Int) = db.getRepeatableOperationsByDate(date)
 
     override fun repeatOperation(ro: RepeatableOperation) {
@@ -66,4 +83,9 @@ class DataSourceHelper(private val db: Database,
     }
 
     override fun removeOperation(o: Operation) = db.removeOperation(o)
+
+    override fun hasWallets(): Single<Boolean> {
+        return db.getWallets()
+                .flatMap { Single.just(it.isNotEmpty()) }
+    }
 }

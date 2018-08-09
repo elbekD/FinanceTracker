@@ -53,7 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun cardDao(): WalletDao
+    abstract fun walletDao(): WalletDao
     abstract fun operationDao(): OperationDao
     abstract fun categoryDao(): CategoryDao
     abstract fun currencyDao(): CurrencyDao

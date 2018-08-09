@@ -1,8 +1,8 @@
 package com.example.ignition.financetracker
 
 
-import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardDialogContract
-import com.example.ignition.financetracker.ui.main.addCardDialog.AddCardModule
+import com.example.ignition.financetracker.ui.main.addWalletDialog.AddWalletDialogContract
+import com.example.ignition.financetracker.ui.main.addWalletDialog.AddWalletModule
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -15,13 +15,13 @@ import org.mockito.MockitoAnnotations
  */
 class AddWalletDialogPresenterTest {
     @Mock
-    lateinit var view: AddCardDialogContract.View
-    lateinit var presenter: AddCardDialogContract.Presenter
+    lateinit var view: AddWalletDialogContract.View
+    lateinit var presenter: AddWalletDialogContract.Presenter
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = AddCardModule.provideAddCardModule()
+        presenter = AddWalletModule.provideAddCardModule()
         presenter.attachView(view)
     }
 

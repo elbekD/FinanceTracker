@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_transactionsFromDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_transactionsToDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_transactionsFromDate"
+        app:layout_constraintStart_toStartOf="@+id/tv_transactionsFromDate"
+        app:layout_constraintTop_toBottomOf="@+id/tv_transactionsFromDate" />
+
+    <RadioGroup
+        android:id="@+id/group_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checkedButton="@+id/filter_all"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/tv_transactionsToDate"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/tv_transactionsToDate"
+        app:layout_constraintTop_toBottomOf="@+id/tv_transactionsToDate">
+
+        <RadioButton
+            android:id="@+id/filter_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/all_all" />
+
+        <RadioButton
+            android:id="@+id/filter_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/income" />
+
+        <RadioButton
+            android:id="@+id/filter_outcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/outcome" />
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinner_filterTypes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/group_filter"
+        app:layout_constraintStart_toStartOf="@+id/group_filter"
+        app:layout_constraintTop_toBottomOf="@+id/group_filter" />
+
+</android.support.constraint.ConstraintLayout>

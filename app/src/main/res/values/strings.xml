@@ -30,9 +30,15 @@
     <string name="operation_periodDescription">Повторять каждое %d число месяца</string>
     <string name="operation_repeatBegin">Повторять каждое</string>
     <string name="operation_repeatEnd">число месяца</string>
+    <string name="operation_noWallets">Добавьте сначала кошелек</string>
+    <string name="operation_noOperations">У вас пока нет операций</string>
+    <string name="operation_noRepeatableOperations">У вас пока нет периодических операций</string>
 
     <string name="fabLabel_addWallet">Новый кошелек</string>
     <string name="fabLabel_addOperation">Новая операция</string>
+    <string name="operations_periodic">Периодические операции</string>
+    <string name="operations_done">Выполненные операции</string>
+    <string name="all_all">Все</string>
 
     <string-array name="operation_period">
         <item>Секунда</item>

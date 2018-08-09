@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker.ui.main.addCardDialog
+package com.example.ignition.financetracker.ui.main.addWalletDialog
 
 import android.app.Dialog
 import android.content.Context
@@ -16,21 +16,21 @@ import com.example.ignition.financetracker.entities.Wallet
 /**
  * Created by Elbek D. on 03.08.2018.
  */
-class AddCardDialog : DialogFragment(), AddCardDialogContract.View {
+class AddWalletDialog : DialogFragment(), AddWalletDialogContract.View {
     interface AddCardListener {
         fun onAddWalletClick(c: Wallet)
     }
 
     companion object {
-        fun newInstance() = AddCardDialog()
+        fun newInstance() = AddWalletDialog()
     }
 
     private lateinit var v: View
     private var listener: AddCardListener? = null
-    private lateinit var presenter: AddCardDialogContract.Presenter
+    private lateinit var presenter: AddWalletDialogContract.Presenter
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        presenter = AddCardModule.provideAddCardModule()
+        presenter = AddWalletModule.provideAddCardModule()
         presenter.attachView(this)
 
         v = LayoutInflater.from(activity).inflate(R.layout.dialog_addcard, null)

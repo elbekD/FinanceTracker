@@ -1,8 +1,6 @@
 package com.example.ignition.financetracker.entities
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
 /**
  * Created by Elbek D. on 06.08.2018.
@@ -14,5 +12,16 @@ import android.arch.persistence.room.PrimaryKey
                 onDelete = ForeignKey.CASCADE)])
 data class RepeatableOperation(
         @PrimaryKey(autoGenerate = true)
-        val id: Long = 0, val operationId: Long,
+        val id: Long = 0,
+        val walletName: String,
+        val operationId: Long,
         val periodDate: Int)
+
+class PeriodicOperation {
+    @Embedded
+    var rOperation: RepeatableOperation? = null
+    @Relation(entity = Operation::class,
+            parentColumn = "operationId",
+            entityColumn = "id")
+    var operations: List<Operation>? = null
+}

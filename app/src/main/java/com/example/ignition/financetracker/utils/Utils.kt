@@ -3,6 +3,8 @@ package com.example.ignition.financetracker.utils
 import android.content.Context
 import android.text.format.DateUtils
 import android.widget.ArrayAdapter
+import com.example.ignition.financetracker.entities.Operation
+import com.example.ignition.financetracker.entities.OperationFilter
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -26,5 +28,21 @@ object Utils {
     fun formatDate(ctx: Context?, time: Long): String {
         return DateUtils.formatDateTime(ctx, time,
                 DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_DATE)
+    }
+
+    fun filterOperationList(items: List<Operation>, filter: OperationFilter): List<Operation> {
+        val tmp = mutableListOf<Operation>()
+        when {
+            filter.expense -> tmp.addAll(items.filter { it.sum < BigDecimal.ZERO })
+            filter.income -> tmp.addAll(items.filter { it.sum > BigDecimal.ZERO })
+            else -> tmp.addAll(items)
+        }
+
+        return if (filter.anyCategory) {
+            tmp.filter { it.date >= filter.from && it.date <= filter.to }
+        } else {
+            tmp.filter { it.date >= filter.from && it.date <= filter.to }
+                    .filter { it.operationType == filter.category }
+        }
     }
 }
