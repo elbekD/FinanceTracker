@@ -3,6 +3,7 @@ package com.example.ignition.financetracker.ui.main.walletFragment
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.data.DataSource
 import com.example.ignition.financetracker.entities.ExchangeRate
+import com.example.ignition.financetracker.entities.OperationTemplate
 import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.ui.base.BasePresenter
@@ -96,5 +97,9 @@ private constructor(dataSource: DataSource,
                     if (res) view?.openPeriodicFragment(walletName)
                     else view?.showError(R.string.operation_noRepeatableOperations)
                 })
+    }
+
+    override fun addTemplateOperation(t: OperationTemplate) {
+        view?.showError("Шаблон типа добавлен")
     }
 }

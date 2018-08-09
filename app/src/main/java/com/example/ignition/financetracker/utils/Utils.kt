@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.format.DateUtils
 import android.widget.ArrayAdapter
 import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.OperationFilter
+import com.example.ignition.financetracker.ui.main.OperationFilter
 import java.math.BigDecimal
 import java.text.DecimalFormat
 

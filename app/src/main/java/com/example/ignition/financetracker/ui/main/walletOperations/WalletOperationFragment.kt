@@ -10,8 +10,9 @@ import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.OperationAdapter
 import com.example.ignition.financetracker.adapters.PeriodicOperationAdapter
 import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.OperationFilter
+import com.example.ignition.financetracker.entities.OperationTemplate
 import com.example.ignition.financetracker.entities.PeriodicOperation
+import com.example.ignition.financetracker.ui.main.OperationFilter
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.ui.main.addOperationDialog.AddOperationDialog
 import com.example.ignition.financetracker.ui.main.walletOperations.filterDialog.FilterDialog
@@ -86,5 +87,9 @@ class WalletOperationFragment : Fragment(), WalletOperationContract.View,
 
     override fun applyFilter(filter: OperationFilter) {
         operationAdapter?.applyFilter(filter) ?: periodicOperationAdapter?.applyFilter(filter)
+    }
+
+    override fun onAddOperationTemplate(t: OperationTemplate) {
+
     }
 }

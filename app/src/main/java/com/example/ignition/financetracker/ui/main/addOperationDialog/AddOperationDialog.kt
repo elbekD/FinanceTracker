@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.entities.Operation
+import com.example.ignition.financetracker.entities.OperationTemplate
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.dialog_addoperation.view.*
@@ -21,6 +22,7 @@ import java.util.*
 class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
     interface AddOperationListener {
         fun onAddOperationClick(ro: RepeatableOperationModel)
+        fun onAddOperationTemplate(t: OperationTemplate)
     }
 
     companion object {
@@ -204,11 +206,20 @@ class AddOperationDialog : DialogFragment(), AddOperationDialogContract.View {
         val dateInMillis = calendar
                 .apply { clear(Calendar.HOUR); clear(Calendar.MINUTE); clear(Calendar.SECOND) }
                 .timeInMillis
+
         val repeatDayOfMonth = if (periodSwitcher.isChecked) {
             val month = (Calendar.getInstance()[Calendar.MONTH] + 1) % 12
             val day = findViewById<EditText>(R.id.input_operationPeriod).text.toString().toInt()
             day * 100 + month
         } else 0
+
+        if (v.switch_saveAsTemplate.isChecked) {
+            val t = OperationTemplate(0, wallet,
+                    category,
+                    Utils.makeNegativeDecimal(amount, isOutcome),
+                    currency)
+            listener?.onAddOperationTemplate(t)
+        }
 
         RepeatableOperationModel(Operation(
                 editOperation?.id ?: 0,

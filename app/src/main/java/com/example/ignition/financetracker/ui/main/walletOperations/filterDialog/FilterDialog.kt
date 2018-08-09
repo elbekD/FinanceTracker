@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.entities.Category
-import com.example.ignition.financetracker.entities.OperationFilter
+import com.example.ignition.financetracker.ui.main.OperationFilter
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.dialog_filter.view.*
 import java.util.*
@@ -106,7 +106,7 @@ class FilterDialog : DialogFragment(), FilterDialogContract.View {
 
     private fun gatherFilter() = with(v) {
         val from = calendarFrom.apply { clear(Calendar.HOUR); clear(Calendar.MINUTE); clear(Calendar.SECOND) }.timeInMillis
-        val to = calendarTo.apply { clear(Calendar.HOUR); clear(Calendar.MINUTE); clear(Calendar.SECOND) }.timeInMillis
+        val to = calendarTo.timeInMillis
         val (all, income, expense) = when (group_filter.checkedRadioButtonId) {
             R.id.filter_all -> Triple(true, false, false)
             R.id.filter_income -> Triple(false, true, false)

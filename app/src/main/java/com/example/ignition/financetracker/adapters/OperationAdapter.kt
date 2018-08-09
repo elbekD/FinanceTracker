@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.OperationFilter
+import com.example.ignition.financetracker.ui.main.OperationFilter
 import com.example.ignition.financetracker.ui.main.walletOperations.WalletOperationContract
 import com.example.ignition.financetracker.utils.Utils
 import kotlinx.android.synthetic.main.itemview_operation.view.*

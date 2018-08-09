@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.ignition.financetracker.R
 import com.example.ignition.financetracker.adapters.WalletPageAdapter
+import com.example.ignition.financetracker.entities.OperationTemplate
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.entities.WalletOperationsModel
 import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
@@ -100,13 +101,12 @@ class WalletsFragment : Fragment(),
     }
 
     override fun onAddOperationClick(ro: RepeatableOperationModel) {
-        Log.d("AZA", ro.toString())
         presenter.commitOperation(ro)
     }
 
-//    override fun addWalletToPager(w: Wallet) {
-//        cardsPager.currentItem = walletPagerAdapter.addWalletModel(createWalletModelFrom(w))
-//    }
+    override fun onAddOperationTemplate(t: OperationTemplate) {
+        presenter.addTemplateOperation(t)
+    }
 
     override fun showError(msg: Int) {
         showError(getString(msg))

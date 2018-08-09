@@ -1,7 +1,6 @@
 package com.example.ignition.financetracker.ui.main.walletOperations
 
 import com.example.ignition.financetracker.entities.Operation
-import com.example.ignition.financetracker.entities.OperationFilter
 import com.example.ignition.financetracker.entities.PeriodicOperation
 import com.example.ignition.financetracker.entities.RepeatableOperation
 import com.example.ignition.financetracker.ui.base.MvpPresenter

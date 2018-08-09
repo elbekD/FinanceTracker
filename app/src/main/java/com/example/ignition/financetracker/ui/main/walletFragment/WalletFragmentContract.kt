@@ -1,5 +1,6 @@
 package com.example.ignition.financetracker.ui.main.walletFragment
 
+import com.example.ignition.financetracker.entities.OperationTemplate
 import com.example.ignition.financetracker.entities.Wallet
 import com.example.ignition.financetracker.entities.WalletOperationsModel
 import com.example.ignition.financetracker.ui.base.MvpPresenter
@@ -26,5 +27,6 @@ interface WalletFragmentContract {
         fun onAddOperationClick()
         fun onWalletHistoryClick(walletName: String)
         fun onWalletPeriodicClick(walletName: String)
+        fun addTemplateOperation(t: OperationTemplate)
     }
 }
