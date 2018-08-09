@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        style="@style/MainTextViewStyle"
         android:id="@+id/tv_operationsType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

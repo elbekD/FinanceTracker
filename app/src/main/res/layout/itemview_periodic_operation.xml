@@ -12,6 +12,7 @@
 
         <TextView
             android:id="@+id/itemview_operation_type"
+            style="@style/MainTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,6 +22,7 @@
 
         <TextView
             android:id="@+id/itemview_operation_amount"
+            style="@style/MainTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -30,6 +32,7 @@
 
         <TextView
             android:id="@+id/itemview_operation_currency"
+            style="@style/SecondaryTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -39,6 +42,7 @@
 
         <TextView
             android:id="@+id/itemview_operation_date"
+            style="@style/SecondaryTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

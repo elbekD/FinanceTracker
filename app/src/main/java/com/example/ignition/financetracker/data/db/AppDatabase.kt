@@ -41,8 +41,10 @@ abstract class AppDatabase : RoomDatabase() {
                                 with(get(ctx, name)) {
                                     val listOfCurrencies = listOf(Currency(0, "RUB", true),
                                             Currency(0, "USD", true))
-                                    val listOfCategories = listOf(Category(0, "Food"),
-                                            Category(0, "House"))
+                                    val listOfCategories = listOf(Category(0, "Еда"),
+                                            Category(0, "Дом"),
+                                            Category(0, "Зарплата"),
+                                            Category(0, "Прочее"))
 
                                     currencyDao().insertAll(listOfCurrencies)
                                     categoryDao().insertAll(listOfCategories)

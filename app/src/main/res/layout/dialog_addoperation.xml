@@ -84,6 +84,7 @@
 
         <TextView
             android:id="@+id/tv_transactionDate"
+            style="@style/MainTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -94,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="Сохранить как шаблон" />
+            android:text="@string/operation_saveAsTemplate" />
 
         <Switch
             android:id="@+id/switch_transactionPeriodDate"
@@ -112,6 +113,7 @@
             android:visibility="gone">
 
             <TextView
+                style="@style/SecondaryTextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -127,6 +129,7 @@
                 android:inputType="number" />
 
             <TextView
+                style="@style/SecondaryTextViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

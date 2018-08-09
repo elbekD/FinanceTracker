@@ -39,6 +39,9 @@
     <string name="operations_periodic">Периодические операции</string>
     <string name="operations_done">Выполненные операции</string>
     <string name="all_all">Все</string>
+    <string name="operation_saveAsTemplate">Сохранить как шаблон</string>
+    <string name="all_about2">Нет тестов, нет 2-pane, итак pain, есть сон</string>
+    <string name="switch_magic">Магический свитч</string>
 
     <string-array name="operation_period">
         <item>Секунда</item>
