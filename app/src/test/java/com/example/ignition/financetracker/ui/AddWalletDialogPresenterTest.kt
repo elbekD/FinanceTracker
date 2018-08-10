@@ -1,4 +1,4 @@
-package com.example.ignition.financetracker
+package com.example.ignition.financetracker.ui
 
 
 import com.example.ignition.financetracker.ui.main.addWalletDialog.AddWalletDialogContract

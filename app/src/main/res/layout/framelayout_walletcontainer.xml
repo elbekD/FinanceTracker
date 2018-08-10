@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@+id/card_your_balance"
             app:layout_constraintTop_toBottomOf="@+id/card_your_balance" />
 
@@ -36,7 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="20sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/card_balance"
             app:layout_constraintStart_toEndOf="@+id/card_balance" />
 
@@ -103,7 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/card_balance"
             app:layout_constraintTop_toBottomOf="@+id/card_balance" />
@@ -114,7 +111,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="16sp"
             android:visibility="gone"
             app:layout_constraintBaseline_toBaselineOf="@+id/card_balance2"
             app:layout_constraintStart_toEndOf="@+id/card_balance2" />

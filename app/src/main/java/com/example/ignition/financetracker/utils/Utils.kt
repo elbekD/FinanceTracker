@@ -5,6 +5,9 @@ import android.text.format.DateUtils
 import android.widget.ArrayAdapter
 import com.example.ignition.financetracker.entities.Operation
 import com.example.ignition.financetracker.ui.main.OperationFilter
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -44,5 +47,10 @@ object Utils {
             tmp.filter { it.date >= filter.from && it.date <= filter.to }
                     .filter { it.operationType == filter.category }
         }
+    }
+
+    fun emptyPieChartDataSet(): PieData {
+        val s = PieDataSet(listOf(PieEntry(1f)), "-_-").apply { setDrawValues(false) }
+        return PieData(s)
     }
 }

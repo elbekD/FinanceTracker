@@ -23,7 +23,6 @@
         android:layout_marginTop="16dp"
         android:gravity="bottom|center_vertical"
         android:text="@string/all_mainCurrency"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/input_newWalletName"
         app:layout_constraintTop_toBottomOf="@+id/input_newWalletName" />
 
@@ -43,7 +42,6 @@
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:text="@string/all_secondaryCurrency"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tv_newMainCurrency"
         app:layout_constraintTop_toBottomOf="@+id/tv_newMainCurrency" />
 

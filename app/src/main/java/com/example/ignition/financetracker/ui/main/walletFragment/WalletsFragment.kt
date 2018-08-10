@@ -17,6 +17,7 @@ import com.example.ignition.financetracker.ui.main.RepeatableOperationModel
 import com.example.ignition.financetracker.ui.main.addOperationDialog.AddOperationDialog
 import com.example.ignition.financetracker.ui.main.addWalletDialog.AddWalletDialog
 import com.example.ignition.financetracker.ui.main.walletOperations.WalletOperationFragment
+import com.example.ignition.financetracker.utils.Utils
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -38,6 +39,7 @@ class WalletsFragment : Fragment(),
     private lateinit var walletPagerAdapter: WalletPageAdapter
     private lateinit var walletPageChangeListener: ViewPager.OnPageChangeListener
     private var currentPage = 0
+    private var pieChartShowIncome = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         presenter = WalletFragmentModule.provideCardFragmentPresenter()
@@ -67,6 +69,16 @@ class WalletsFragment : Fragment(),
 
         walletsPager.addOnPageChangeListener(walletPageChangeListener)
         walletsPager.adapter = walletPagerAdapter
+
+        pieChart.setOnClickListener {
+            pieChartShowIncome = !pieChartShowIncome
+            updatePieChart()
+        }
+
+        pieChart.legend.isWordWrapEnabled = true
+        pieChart.legend.textSize = 14f
+        pieChart.description = null
+        pieChart.isHighlightPerTapEnabled = false
     }
 
     override fun showAddWalletDialog() {
@@ -84,10 +96,12 @@ class WalletsFragment : Fragment(),
         super.onDestroyView()
     }
 
-    override fun onDestroy() {
-        walletsPager?.removeOnPageChangeListener(walletPageChangeListener)
-        if (isRemoving) presenter.destroy()
-        super.onDestroy()
+    override fun onDetach() {
+        if (isDetached) {
+            presenter.destroy()
+            walletsPager?.removeOnPageChangeListener(walletPageChangeListener)
+        }
+        super.onDetach()
     }
 
     override fun loadWallets(wallets: List<WalletOperationsModel>) {
@@ -143,24 +157,41 @@ class WalletsFragment : Fragment(),
 
     private fun updatePieChart() {
         val ops = walletPagerAdapter.getWalletModelByPosition(currentPage).operations
-        val expenses = ops.asSequence().filter { it.sum < BigDecimal.ZERO }.groupBy { it.operationType }
-        val amount = expenses.asSequence()
+
+        val inOrOut = if (pieChartShowIncome) {
+            ops.asSequence().filter { it.sum > BigDecimal.ZERO }.groupBy { it.operationType }
+        } else {
+            ops.asSequence().filter { it.sum < BigDecimal.ZERO }.groupBy { it.operationType }
+        }
+
+        if (inOrOut.isEmpty()) {
+            return emptyPieChart()
+        }
+
+        val amount = inOrOut.asSequence()
                 .sumByDouble { -it.value.sumByDouble { it.sum.toDouble() } }
                 .toFloat()
 
         val list = mutableListOf<PieEntry>()
-        expenses.forEach {
+        inOrOut.forEach {
             list.add(PieEntry(
                     amount / -it.value.sumByDouble { it.sum.toDouble() }.toFloat(),
                     it.key))
         }
 
-        val pieDataSet = PieDataSet(list, getString(R.string.all_expense))
+        val pieDataSet = PieDataSet(list, "")
         pieDataSet.colors = ColorTemplate.MATERIAL_COLORS.asList()
+
+        pieDataSet.setDrawValues(false)
 
         with(pieChart) {
             data = PieData(pieDataSet)
             invalidate()
         }
+    }
+
+    private fun emptyPieChart() {
+        pieChart.data = Utils.emptyPieChartDataSet()
+        pieChart.invalidate()
     }
 }

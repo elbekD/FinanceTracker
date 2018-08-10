@@ -87,8 +87,7 @@
             style="@style/MainTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textAlignment="center" />
 
         <Switch
             android:id="@+id/switch_saveAsTemplate"
