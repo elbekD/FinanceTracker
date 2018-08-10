@@ -4,10 +4,18 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'mKey'
+            keyPassword 'je3054705'
+            storeFile file('D:/Android/keystore/android.jks')
+            storePassword '3054705je'
+        }
+    }
     compileSdkVersion build_versions.target_sdk
     buildToolsVersion build_versions.build_tools
-
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.example.ignition.financetracker"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
@@ -24,10 +32,12 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://free.currencyconverterapi.com/api/\"")
             buildConfigField("String", "DB_NAME", "\"finance.db\"")
         }
-
         release {
             minifyEnabled true
+            buildConfigField("String", "BASE_URL", "\"https://free.currencyconverterapi.com/api/\"")
+            buildConfigField("String", "DB_NAME", "\"finance.db\"")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -38,34 +48,28 @@ dependencies {
     implementation deps.support.cardview
     implementation deps.support.design
     implementation deps.support.constraint
-
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.retrofit.adapter
-
-    implementation deps.kotlin.stdlib
-    implementation deps.mpchart
     implementation deps.rx.rxjava
     implementation deps.rx.rxandroid
-
+    implementation deps.kotlin.stdlib
     implementation deps.room.runtime
     implementation deps.room.rxjava
     kapt deps.room.compiler
-
+    implementation deps.mpchart
+    implementation deps.fabmenu
     testImplementation deps.junit
     testImplementation deps.mockito.core
     androidTestImplementation deps.mockito.core
     testImplementation deps.mockito.android
     androidTestImplementation deps.mockito.android
-
     androidTestImplementation deps.support.appcompat
     androidTestImplementation deps.support.recyclerview
     androidTestImplementation deps.support.cardview
     androidTestImplementation deps.support.design
-
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
-
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.espresso.intents

@@ -17,41 +17,41 @@
 
     <TextView
         android:id="@+id/tv_newMainCurrency"
+        style="@style/SecondaryTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="bottom|center_vertical"
         android:text="@string/all_mainCurrency"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/input_newWalletName"
         app:layout_constraintTop_toBottomOf="@+id/input_newWalletName" />
 
     <Spinner
         android:id="@+id/spinner_newWalletMainCurrency"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_newMainCurrency"
         app:layout_constraintEnd_toEndOf="@+id/input_newWalletName"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_newMainCurrency"
         app:layout_constraintTop_toTopOf="@+id/tv_newMainCurrency" />
 
     <TextView
         android:id="@+id/tv_newWalletSecondaryCurrency"
+        style="@style/SecondaryTextViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="@string/all_secondaryCurrency"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tv_newMainCurrency"
         app:layout_constraintTop_toBottomOf="@+id/tv_newMainCurrency" />
 
     <Spinner
         android:id="@+id/spinner_newWalletSecondaryCurrency"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_newWalletSecondaryCurrency"
         app:layout_constraintEnd_toEndOf="@+id/spinner_newWalletMainCurrency"
-        app:layout_constraintStart_toEndOf="@+id/tv_newWalletSecondaryCurrency"
+        app:layout_constraintStart_toStartOf="@+id/spinner_newWalletMainCurrency"
         app:layout_constraintTop_toTopOf="@+id/tv_newWalletSecondaryCurrency" />
 
     <android.support.design.widget.TextInputEditText

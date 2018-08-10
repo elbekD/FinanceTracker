@@ -1,10 +1,9 @@
 package com.example.ignition.financetracker.data.db.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.example.ignition.financetracker.entities.Wallet
+import com.example.ignition.financetracker.entities.WalletOperations
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -16,8 +15,12 @@ interface WalletDao {
     fun insertWallet(w: Wallet)
 
     @Query("select * from wallet")
-    fun allWallet(): Single<List<Wallet>>
+    fun getWallets(): Single<List<Wallet>>
 
     @Query("select * from wallet where name = :walletName")
     fun walletByName(walletName: String): Single<Wallet>
+
+    @Transaction
+    @Query("select * from wallet")
+    fun getWalletsOperations(): Flowable<List<WalletOperations>>
 }

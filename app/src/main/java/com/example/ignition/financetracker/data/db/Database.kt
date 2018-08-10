@@ -1,6 +1,7 @@
 package com.example.ignition.financetracker.data.db
 
 import com.example.ignition.financetracker.entities.*
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -15,14 +16,18 @@ interface Database {
     // operation
     fun insertOperation(t: Operation): Long
     fun getOperationById(operationId: Long): Operation
-    fun getWalletOperations(name: String): Single<List<Operation>>
-    fun getOperations(): Single<List<Operation>>
+    fun getWalletOperations(name: String): Flowable<List<Operation>>
+    fun getOperations(): Flowable<List<Operation>>
+    fun removeOperation(o: Operation): Single<Boolean>
+    fun getWalletsOperations(): Flowable<List<WalletOperationsModel>>
+    fun walletOperationCount(wName: String): Single<Int>
 
     // repeatable operation
     fun insertRepeatableOperation(ro: RepeatableOperation)
-    fun insertAllRepeatableOperations(ros: List<RepeatableOperation>)
-    fun getAllRepeatableOperations(): Single<List<RepeatableOperation>>
+    fun getWalletPeriodicOperations(wName: String): Single<PeriodicOperation>
+    fun removePeriodicOperation(ro: RepeatableOperation): Single<Boolean>
     fun getRepeatableOperationsByDate(date: Int): Single<List<RepeatableOperation>>
+    fun walletRepeatableOperationCount(wName: String): Single<Int>
 
     // categories
     fun getAllCategories(): Single<List<Category>>
@@ -30,7 +35,7 @@ interface Database {
     // currency
     fun insertCurrency(c: Currency)
     fun insertAllCurrencies(c: List<Currency>)
-    fun getUserCurrencies(): Single<List<Currency>>
+    fun getUserCurrencies(): Flowable<List<Currency>>
 
     // exchange rate
     fun insertRate(r: ExchangeRate)

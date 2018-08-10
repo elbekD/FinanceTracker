@@ -13,8 +13,8 @@ class WalletDaoTest : DbTest(){
     @Test
     fun insertAndRead() {
         val w = TestUtils.createWallet()
-        db.cardDao().insertWallet(w)
-        val res = db.cardDao().walletByName(w.name).test()
+        db.walletDao().insertWallet(w)
+        val res = db.walletDao().walletByName(w.name).test()
         res.assertValue { w.name == it.name }
     }
 }
