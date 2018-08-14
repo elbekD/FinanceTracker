@@ -7,9 +7,9 @@ android {
     signingConfigs {
         config {
             keyAlias 'mKey'
-            keyPassword 'je3054705'
-            storeFile file('D:/Android/keystore/android.jks')
-            storePassword '3054705je'
+            keyPassword '000'
+            storeFile file('000')
+            storePassword '000'
         }
     }
     compileSdkVersion build_versions.target_sdk
